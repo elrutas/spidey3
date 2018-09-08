@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Spidey2</string>
+    <string name="fake_key">fake_key</string>
 </resources>
