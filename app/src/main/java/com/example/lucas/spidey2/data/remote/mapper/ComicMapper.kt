@@ -7,17 +7,17 @@ import com.example.lucas.spidey2.domain.model.Comic
 class ComicMapper {
 
     fun map(comicDataWrapperEntity: ComicDataWrapperEntity): List<Comic> {
-        val comicEntityList = comicDataWrapperEntity.dataEntity?.comicEntityList
+        val comicEntityList = comicDataWrapperEntity.data.results
 
-        if (comicEntityList == null || comicEntityList.isEmpty()) {
+        if (comicEntityList.isEmpty()) {
             return listOf<Comic>()
         }
 
         return comicEntityList.map { comicEntity ->
-            Comic(comicEntity.title ?: "",
-                    comicEntity.thumbnailEntity?.path + "." + comicEntity.thumbnailEntity?.extension,
-                    comicEntity.description ?: "",
-                    mapImageEntities(comicEntity.imageEntities)
+            Comic(comicEntity.title,
+                    comicEntity.thumbnail.path + "." + comicEntity.thumbnail.extension,
+                    comicEntity.description,
+                    mapImageEntities(comicEntity.images)
             )
         }
     }
