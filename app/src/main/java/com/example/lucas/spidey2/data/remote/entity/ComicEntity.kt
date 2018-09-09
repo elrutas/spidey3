@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 
 import java.util.ArrayList
 
-class Comic {
+class ComicEntity {
     @SerializedName("id")
     @Expose
     var id: String? = null
@@ -51,11 +51,11 @@ class Comic {
     @SerializedName("resourceURI")
     @Expose
     var resourceURI: String? = null
-    @SerializedName("thumbnail")
+    @SerializedName("thumbnailEntity")
     @Expose
-    var thumbnail: Thumbnail? = null
-    @SerializedName("images")
+    var thumbnailEntity: ThumbnailEntity? = null
+    @SerializedName("imageEntities")
     @Expose
-    var images: List<ComicImage> = ArrayList()
+    var imageEntities: List<ComicImageEntity> = ArrayList()
 }
 

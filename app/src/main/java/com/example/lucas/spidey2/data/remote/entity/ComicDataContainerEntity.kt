@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName
 import java.util.ArrayList
 
 
-class ComicDataContainer {
+class ComicDataContainerEntity {
 
     @SerializedName("offset")
     @Expose
@@ -22,6 +22,6 @@ class ComicDataContainer {
     var count: Int = 0
     @SerializedName("results")
     @Expose
-    var comicList: List<Comic> = ArrayList()
+    var comicEntityList: List<ComicEntity> = ArrayList()
 
 }

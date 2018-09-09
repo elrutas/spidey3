@@ -13,7 +13,7 @@ class ComicListPresenter @Inject constructor(val getComicsForSuperHero: GetComic
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        { comics -> Log.d("luk", comics.status) },
+                        { comics -> Log.d("luk", comics.size.toString()) },
                         { throwable ->  Log.e("luk", throwable?.message)  }
                 )
     }

@@ -3,7 +3,7 @@ package com.example.lucas.spidey2.data.remote.entity
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-class ComicDataWrapper {
+class ComicDataWrapperEntity {
 
     @SerializedName("code")
     @Expose
@@ -20,9 +20,9 @@ class ComicDataWrapper {
     @SerializedName("attributionHTML")
     @Expose
     var attributionHTML: String? = null
-    @SerializedName("data")
+    @SerializedName("dataEntity")
     @Expose
-    var data: ComicDataContainer? = null
+    var dataEntity: ComicDataContainerEntity? = null
     @SerializedName("etag")
     @Expose
     var etag: String? = null
