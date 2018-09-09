@@ -1,10 +1,10 @@
 package com.example.lucas.spidey2.ui.features.comiclist
 
-import android.util.Log
 import com.example.lucas.spidey2.domain.model.Comic
 import com.example.lucas.spidey2.domain.usecase.GetComicsForSuperHero
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import timber.log.Timber
 import javax.inject.Inject
 
 class ComicListPresenter @Inject constructor(val getComicsForSuperHero: GetComicsForSuperHero) {
@@ -21,12 +21,12 @@ class ComicListPresenter @Inject constructor(val getComicsForSuperHero: GetComic
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         { comics -> view.addComicsToList(comics) },
-                        { throwable ->  Log.e("luk", throwable?.message)  }
+                        { throwable ->  Timber.e(throwable)  }
                 )
     }
 
     fun comicClicked(comic: Comic) {
-        Log.d("luk", "Comic clicked ${comic.title}")
+        Timber.d("Comic clicked ${comic.title}")
     }
 
 }
