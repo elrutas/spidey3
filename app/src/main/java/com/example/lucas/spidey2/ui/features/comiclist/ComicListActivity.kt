@@ -5,10 +5,12 @@ import android.os.Bundle
 import com.example.lucas.spidey2.R
 import com.example.lucas.spidey2.SpideyApp
 import com.example.lucas.spidey2.domain.model.Comic
+import com.example.lucas.spidey2.ui.features.comiclist.adapter.ComicListAdapter
 import kotlinx.android.synthetic.main.activity_comic_list.*
 import javax.inject.Inject
 
 class ComicListActivity : AppCompatActivity(), ComicListView {
+
     @Inject lateinit var presenter: ComicListPresenter
 
     lateinit var comicListAdapter: ComicListAdapter
@@ -21,7 +23,7 @@ class ComicListActivity : AppCompatActivity(), ComicListView {
                 .getComicListComponent()
                 .inject(this)
 
-        presenter.attachView(this)
+        presenter.initialise(this)
 
         setupComicList()
     }
@@ -42,7 +44,7 @@ class ComicListActivity : AppCompatActivity(), ComicListView {
         presenter.getComics()
     }
 
-    override fun addComicsToList(comics: List<Comic>) {
+    override fun showComics(comics: List<Comic>) {
         comicListAdapter.addComics(comics)
     }
 }

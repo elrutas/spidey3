@@ -1,4 +1,4 @@
-package com.example.lucas.spidey2.ui.features.comiclist
+package com.example.lucas.spidey2.ui.features.comiclist.adapter
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -9,6 +9,8 @@ import com.example.lucas.spidey2.domain.model.Comic
 import com.example.lucas.spidey2.extensions.loadUrl
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.comic_list_item.*
+import android.support.v7.util.DiffUtil
+
 
 class ComicListAdapter(val itemClick: (Comic) -> Unit) : RecyclerView.Adapter<ComicListAdapter.ComicItemViewHolder>() {
 
@@ -26,9 +28,13 @@ class ComicListAdapter(val itemClick: (Comic) -> Unit) : RecyclerView.Adapter<Co
         holder.bind(comic)
     }
 
-    fun addComics(comics: List<Comic>) {
-        this.comicList.addAll(comics)
-        notifyItemInserted(this.comicList.size - comics.size)
+    fun addComics(newList: List<Comic>) {
+        val diffResult = DiffUtil.calculateDiff(ComicListDiff(comicList, newList))
+
+        this.comicList.clear()
+        this.comicList.addAll(newList)
+
+        diffResult.dispatchUpdatesTo(this)
     }
 
     inner class ComicItemViewHolder(override val containerView: View, private val itemClick: (Comic) -> Unit)

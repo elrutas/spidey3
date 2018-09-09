@@ -14,7 +14,8 @@ class ComicMapper {
         }
 
         return comicEntityList.map { comicEntity ->
-            Comic(comicEntity.title,
+            Comic(comicEntity.id,
+                    comicEntity.title,
                     comicEntity.thumbnail.path + "." + comicEntity.thumbnail.extension,
                     comicEntity.description ?: "",
                     mapImageEntities(comicEntity.images)

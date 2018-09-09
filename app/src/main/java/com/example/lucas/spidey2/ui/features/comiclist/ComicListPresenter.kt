@@ -10,23 +10,32 @@ import javax.inject.Inject
 class ComicListPresenter @Inject constructor(val getComicsForSuperHero: GetComicsForSuperHero) {
 
     lateinit var view: ComicListView
+    lateinit var state: ComicListState
 
-    fun attachView(comicListView: ComicListView) {
+    fun initialise(comicListView: ComicListView) {
         view = comicListView
+        state = ComicListState()
     }
 
     fun getComics() {
-        getComicsForSuperHero.get()
+        getComicsForSuperHero.withParams(20, state.comics.size)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        { comics -> view.addComicsToList(comics) },
+                        { comics ->
+                            state.comics.addAll(comics)
+                            updateView()
+                        },
                         { throwable ->  Timber.e(throwable)  }
                 )
     }
 
     fun comicClicked(comic: Comic) {
         Timber.d("Comic clicked ${comic.title}")
+    }
+
+    private fun updateView() {
+        view.showComics(state.comics)
     }
 
 }
