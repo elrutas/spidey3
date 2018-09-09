@@ -4,11 +4,14 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import com.example.lucas.spidey2.R
 import com.example.lucas.spidey2.SpideyApp
+import com.example.lucas.spidey2.domain.model.Comic
+import kotlinx.android.synthetic.main.activity_comic_list.*
 import javax.inject.Inject
 
-class ComicListActivity : AppCompatActivity() {
-
+class ComicListActivity : AppCompatActivity(), ComicListView {
     @Inject lateinit var presenter: ComicListPresenter
+
+    lateinit var comicListAdapter: ComicListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -17,10 +20,29 @@ class ComicListActivity : AppCompatActivity() {
         (applicationContext as SpideyApp).component
                 .getComicListComponent()
                 .inject(this)
+
+        presenter.attachView(this)
+
+        setupComicList()
+    }
+
+    override fun onResume() {
+        super.onResume()
         getComics()
+    }
+
+    private fun setupComicList() {
+        comicListAdapter = ComicListAdapter { presenter.comicClicked(it) }
+
+        comic_list_grid.setHasFixedSize(true)
+        comic_list_grid.adapter = comicListAdapter
     }
 
     private fun getComics() {
         presenter.getComics()
+    }
+
+    override fun addComicsToList(comics: List<Comic>) {
+        comicListAdapter.addComics(comics)
     }
 }

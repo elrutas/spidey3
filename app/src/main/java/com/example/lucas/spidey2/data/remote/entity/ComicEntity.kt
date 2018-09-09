@@ -6,7 +6,7 @@ class ComicEntity (
         var title: String,
         var issueNumber: String,
         var variantDescription: String,
-        var description: String,
+        var description: String?,
         var modified: String,
         var isbn: String,
         var upc: String,

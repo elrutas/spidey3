@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">Spidey2</string>
     <string name="fake_key">fake_key</string>
+
+    <!--transition names-->
+    <string name="tran_name_title">transition:TITLE</string>
+
 </resources>
