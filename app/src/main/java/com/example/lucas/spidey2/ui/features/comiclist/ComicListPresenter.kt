@@ -1,6 +1,7 @@
 package com.example.lucas.spidey2.ui.features.comiclist
 
 import com.example.lucas.spidey2.domain.model.Comic
+import com.example.lucas.spidey2.domain.model.SuperHero
 import com.example.lucas.spidey2.domain.usecase.GetComicsForSuperHero
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -18,7 +19,7 @@ class ComicListPresenter @Inject constructor(val getComicsForSuperHero: GetComic
     }
 
     fun getComics() {
-        getComicsForSuperHero.withParams(20, state.comics.size)
+        getComicsForSuperHero.withParams(SuperHero.SPIDEY, 20, state.comics.size)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(

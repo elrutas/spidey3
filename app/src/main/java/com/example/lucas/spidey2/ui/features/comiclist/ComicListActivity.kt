@@ -30,7 +30,7 @@ class ComicListActivity : AppCompatActivity(), ComicListView {
 
     override fun onResume() {
         super.onResume()
-        getComics()
+        presenter.getComics()
     }
 
     private fun setupComicList() {
@@ -38,10 +38,6 @@ class ComicListActivity : AppCompatActivity(), ComicListView {
 
         comic_list_grid.setHasFixedSize(true)
         comic_list_grid.adapter = comicListAdapter
-    }
-
-    private fun getComics() {
-        presenter.getComics()
     }
 
     override fun showComics(comics: List<Comic>) {

@@ -9,7 +9,7 @@ import javax.inject.Inject
 
 class GetComicsForSuperHero @Inject constructor(private val comicRepository: ComicRepository) {
 
-    fun withParams(amount: Int, offset: Int): Observable<List<Comic>> {
-        return comicRepository.getListOfComics(SuperHero.SPIDEY, amount, offset)
+    fun withParams(superHero: SuperHero, amount: Int, offset: Int): Observable<List<Comic>> {
+        return comicRepository.getListOfComics(superHero, amount, offset)
     }
 }
