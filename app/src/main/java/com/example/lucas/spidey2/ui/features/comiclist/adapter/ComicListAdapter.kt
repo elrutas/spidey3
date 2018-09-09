@@ -29,7 +29,7 @@ class ComicListAdapter(val itemClick: (Comic) -> Unit) : RecyclerView.Adapter<Co
     }
 
     fun addComics(newList: List<Comic>) {
-        val diffResult = DiffUtil.calculateDiff(ComicListDiff(comicList, newList))
+        val diffResult = DiffUtil.calculateDiff(ComicListDiff(newList, comicList))
 
         this.comicList.clear()
         this.comicList.addAll(newList)
