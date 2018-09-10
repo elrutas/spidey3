@@ -1,10 +1,10 @@
 package com.example.lucas.spidey2.ui.features.comiclist
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import com.example.lucas.spidey2.R
-import com.example.lucas.spidey2.SpideyApp
 import com.example.lucas.spidey2.domain.model.Comic
+import com.example.lucas.spidey2.internal.di.Injector
 import com.example.lucas.spidey2.ui.features.comiclist.adapter.ComicListAdapter
 import com.example.lucas.spidey2.ui.features.comiclist.adapter.EndlessRecyclerViewScrollListener
 import com.example.lucas.spidey2.ui.features.comiclist.di.ComicListModule
@@ -21,7 +21,7 @@ class ComicListActivity : AppCompatActivity(), ComicListView {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_comic_list)
 
-        (applicationContext as SpideyApp).component
+        Injector.getAppComponent()
                 .getComicListComponent(ComicListModule(this))
                 .inject(this)
 

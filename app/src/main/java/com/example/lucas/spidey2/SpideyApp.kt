@@ -1,18 +1,16 @@
 package com.example.lucas.spidey2
 
 import android.app.Application
-
-import com.example.lucas.spidey2.internal.di.AppComponent
-import com.example.lucas.spidey2.internal.di.AppModule
-import com.example.lucas.spidey2.internal.di.DaggerAppComponent
+import com.example.lucas.spidey2.internal.di.Injector
 
 class SpideyApp : Application() {
 
-    val component = createComponent()
+    override fun onCreate() {
+        super.onCreate()
+        initialiseInjection()
+    }
 
-    protected fun createComponent(): AppComponent {
-        return DaggerAppComponent.builder()
-                .appModule(AppModule(this))
-                .build()
+    private fun initialiseInjection() {
+        Injector.initialize(this)
     }
 }
