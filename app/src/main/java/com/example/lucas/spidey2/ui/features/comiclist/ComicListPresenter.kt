@@ -8,15 +8,10 @@ import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
 import javax.inject.Inject
 
-class ComicListPresenter @Inject constructor(val getComicsForSuperHero: GetComicsForSuperHero) {
+class ComicListPresenter @Inject constructor(val view: ComicListView,
+                                             val getComicsForSuperHero: GetComicsForSuperHero) {
 
-    lateinit var view: ComicListView
-    lateinit var state: ComicListState
-
-    fun initialise(comicListView: ComicListView) {
-        view = comicListView
-        state = ComicListState()
-    }
+    var state = ComicListState()
 
     fun getComics() {
         getComicsForSuperHero.withParams(SuperHero.SPIDEY, 20, state.comics.size)

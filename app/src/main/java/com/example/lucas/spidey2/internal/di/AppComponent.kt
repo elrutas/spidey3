@@ -1,6 +1,7 @@
-package com.example.lucas.spidey2.di
+package com.example.lucas.spidey2.internal.di
 
 import com.example.lucas.spidey2.ui.features.comiclist.di.ComicListComponent
+import com.example.lucas.spidey2.ui.features.comiclist.di.ComicListModule
 import javax.inject.Singleton
 
 import dagger.Component
@@ -9,5 +10,5 @@ import dagger.Component
 @Component(modules = [AppModule::class])
 interface AppComponent {
 
-    fun getComicListComponent(): ComicListComponent
+    fun getComicListComponent(comicListModule: ComicListModule): ComicListComponent
 }

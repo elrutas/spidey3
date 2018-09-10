@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.lucas.spidey2.R
 import com.example.lucas.spidey2.domain.model.Comic
-import com.example.lucas.spidey2.extensions.loadUrl
+import com.example.lucas.spidey2.internal.extensions.loadUrl
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.comic_list_item.*
 import android.support.v7.util.DiffUtil

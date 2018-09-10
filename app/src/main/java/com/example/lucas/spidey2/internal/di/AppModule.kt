@@ -1,4 +1,4 @@
-package com.example.lucas.spidey2.di
+package com.example.lucas.spidey2.internal.di
 
 import com.example.lucas.spidey2.R
 import com.example.lucas.spidey2.SpideyApp
