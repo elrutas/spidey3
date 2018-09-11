@@ -22,7 +22,6 @@
 
             <TextView
                 android:id="@+id/comic_title"
-                android:transitionName="@string/tran_name_title"
                 android:layout_width="@dimen/card_width"
                 android:layout_height="60dp"
                 android:paddingLeft="2dp"
@@ -30,7 +29,7 @@
                 android:gravity="center"
                 android:maxLines="2"
                 android:ellipsize="end"
-                android:text="@string/loading"
+                android:text="@string/comic_list_item_loading"
                 android:background="@color/red"/>
 
         </LinearLayout>

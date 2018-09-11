@@ -34,6 +34,7 @@ class ComicListPresenter @Inject constructor(val view: ComicListView,
                         { throwable ->
                             state.status = ComicListState.Status.ERROR
                             Timber.e(throwable)
+                            updateView()
                         }
                 )
     }

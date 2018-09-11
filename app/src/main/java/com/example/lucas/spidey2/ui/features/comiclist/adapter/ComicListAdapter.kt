@@ -11,9 +11,12 @@ import com.example.lucas.spidey2.ui.features.comiclist.adapter.items.ComicListIt
 import com.example.lucas.spidey2.ui.features.comiclist.adapter.items.ComicPM
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.comic_list_item.*
+import kotlinx.android.synthetic.main.error_list_item.*
 
 
-class ComicListAdapter(private val comicClick: (ComicPM) -> Unit) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class ComicListAdapter(private val comicClick: (ComicPM) -> Unit,
+                       private val retryClick: () -> Unit
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     val items: MutableList<ComicListItem> = mutableListOf()
 
@@ -36,6 +39,7 @@ class ComicListAdapter(private val comicClick: (ComicPM) -> Unit) : RecyclerView
         return when(viewType) {
             ComicListItem.Type.COMIC.value -> createComicViewHolder(parent)
             ComicListItem.Type.LOADING_ITEM.value -> createLoadingItemViewHolder(parent)
+            ComicListItem.Type.ERROR_ITEM.value -> createErrorItemViewHolder(parent)
             else -> throw RuntimeException("Not supported item type: $viewType")
         }
     }
@@ -50,10 +54,16 @@ class ComicListAdapter(private val comicClick: (ComicPM) -> Unit) : RecyclerView
         return LoadingItemViewHolder(itemView)
     }
 
+    private fun createErrorItemViewHolder(parent: ViewGroup): ErrorItemViewHolder {
+        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.error_list_item, parent, false)
+        return ErrorItemViewHolder(itemView, retryClick)
+    }
+
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val listItem = items.get(holder.adapterPosition)
         when(holder) {
             is ComicItemViewHolder -> holder.bind(listItem as ComicPM)
+            is ErrorItemViewHolder -> holder.bind()
         }
     }
 
@@ -70,5 +80,13 @@ class ComicListAdapter(private val comicClick: (ComicPM) -> Unit) : RecyclerView
     }
 
     inner class LoadingItemViewHolder(containerView: View) : RecyclerView.ViewHolder(containerView)
+
+    inner class ErrorItemViewHolder(override val containerView: View, private val retryClick: () -> Unit)
+        : RecyclerView.ViewHolder(containerView), LayoutContainer {
+
+        fun bind() {
+            error_list_item_card_view.setOnClickListener{ retryClick.invoke() }
+        }
+    }
 }
 

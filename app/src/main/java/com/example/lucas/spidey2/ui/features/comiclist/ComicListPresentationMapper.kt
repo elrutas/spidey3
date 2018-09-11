@@ -3,6 +3,7 @@ package com.example.lucas.spidey2.ui.features.comiclist
 import com.example.lucas.spidey2.domain.model.Comic
 import com.example.lucas.spidey2.ui.features.comiclist.adapter.items.ComicListItem
 import com.example.lucas.spidey2.ui.features.comiclist.adapter.items.ComicPM
+import com.example.lucas.spidey2.ui.features.comiclist.adapter.items.ErrorItemPM
 import com.example.lucas.spidey2.ui.features.comiclist.adapter.items.LoadingItemPM
 
 class ComicListPresentationMapper {
@@ -19,6 +20,8 @@ class ComicListPresentationMapper {
     private fun mapStatus(items: MutableList<ComicListItem>, status: ComicListState.Status) {
         if (status == ComicListState.Status.LOADING) {
             items.add(LoadingItemPM())
+        } else if (status == ComicListState.Status.ERROR) {
+            items.add((ErrorItemPM()))
         }
     }
 

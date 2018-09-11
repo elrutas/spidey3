@@ -4,6 +4,7 @@ open class ComicListItem(val type: Type) {
 
     enum class Type(val value: Int) {
         COMIC(0),
-        LOADING_ITEM(1)
+        LOADING_ITEM(1),
+        ERROR_ITEM(2)
     }
 }

@@ -3,6 +3,7 @@ package com.example.lucas.spidey2.ui.features.comiclist.adapter
 import android.support.v7.util.DiffUtil
 import com.example.lucas.spidey2.ui.features.comiclist.adapter.items.ComicListItem
 import com.example.lucas.spidey2.ui.features.comiclist.adapter.items.ComicPM
+import com.example.lucas.spidey2.ui.features.comiclist.adapter.items.ErrorItemPM
 import com.example.lucas.spidey2.ui.features.comiclist.adapter.items.LoadingItemPM
 
 class ComicListDiff(val newItems: List<ComicListItem>, val oldItems: List<ComicListItem>) : DiffUtil.Callback() {
@@ -18,6 +19,7 @@ class ComicListDiff(val newItems: List<ComicListItem>, val oldItems: List<ComicL
             return when(oldItem) {
                 is ComicPM -> oldItem.id == (newItem as ComicPM).id
                 is LoadingItemPM -> true
+                is ErrorItemPM -> true
                 else -> false
             }
         }

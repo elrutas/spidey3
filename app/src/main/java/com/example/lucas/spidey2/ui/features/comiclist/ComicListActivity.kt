@@ -35,7 +35,7 @@ class ComicListActivity : AppCompatActivity(), ComicListView {
     }
 
     private fun setupComicList() {
-        comicListAdapter = ComicListAdapter { presenter.comicClicked(it) }
+        comicListAdapter = ComicListAdapter(presenter::comicClicked, presenter::loadComics)
 
         comic_list_grid.setHasFixedSize(true)
         comic_list_grid.adapter = comicListAdapter

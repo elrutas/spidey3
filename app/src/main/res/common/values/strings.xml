@@ -4,6 +4,7 @@
 
     <!--transition names-->
     <string name="tran_name_title">transition:TITLE</string>
-    <string name="loading">LOADING…</string>
+    <string name="comic_list_item_loading">LOADING…</string>
+    <string name="comic_list_item_error">Something failed.\n\nTap to retry</string>
 
 </resources>
