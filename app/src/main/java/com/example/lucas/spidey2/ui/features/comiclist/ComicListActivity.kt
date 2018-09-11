@@ -52,9 +52,10 @@ class ComicListActivity : AppCompatActivity(), ComicListView {
         comicListAdapter.addItems(items)
     }
 
-    override fun launchDetailActivity(comicId: Int) {
+    override fun launchDetailActivity(comicId: Int, comicTitle: String) {
         val intent = Intent(applicationContext, ComicDetailActivity::class.java)
         intent.putExtra(ComicDetailActivity.COMIC_ID_EXTRA, comicId)
+        intent.putExtra(ComicDetailActivity.COMIC_TITLE_EXTRA, comicTitle)
         startActivity(intent)
     }
 }

@@ -40,7 +40,7 @@ class ComicListPresenter @Inject constructor(val view: ComicListView,
     }
 
     fun comicClicked(comic: ComicPM) {
-        view.launchDetailActivity(comic.id)
+        view.launchDetailActivity(comic.id, comic.title)
     }
 
     private fun updateView() {

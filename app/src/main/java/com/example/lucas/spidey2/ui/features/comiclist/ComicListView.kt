@@ -6,5 +6,5 @@ interface ComicListView {
 
     fun showComics(items: List<ComicListItem>)
 
-    fun launchDetailActivity(comicId: Int)
+    fun launchDetailActivity(comicId: Int, comicTitle: String)
 }

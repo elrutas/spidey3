@@ -15,6 +15,7 @@ class ComicDetailActivity : AppCompatActivity(), ComicDetailView {
 
     companion object {
         const val COMIC_ID_EXTRA = "comicId"
+        const val COMIC_TITLE_EXTRA = "comicTitle"
     }
 
     @Inject lateinit var presenter: ComicDetailPresenter
@@ -32,11 +33,13 @@ class ComicDetailActivity : AppCompatActivity(), ComicDetailView {
 
     private fun getIntentExtra() {
         val comicId = intent.getIntExtra(COMIC_ID_EXTRA, -1)
+        val comicTitle = intent.getStringExtra(COMIC_TITLE_EXTRA)
 
         if (comicId  == -1) {
             finish()  // TODO: more "gentle" error handling
         }
 
+        title = comicTitle
         presenter.getComic(comicId)
     }
 
