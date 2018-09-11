@@ -19,4 +19,8 @@ abstract class BasePresenter() {
                         .subscribe(onNext, onError)
         )
     }
+
+    fun stop() {
+        disposables.dispose()
+    }
 }

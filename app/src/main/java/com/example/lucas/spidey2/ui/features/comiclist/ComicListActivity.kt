@@ -58,4 +58,9 @@ class ComicListActivity : AppCompatActivity(), ComicListView {
         intent.putExtra(ComicDetailActivity.COMIC_TITLE_EXTRA, comicTitle)
         startActivity(intent)
     }
+
+    override fun onStop() {
+        super.onStop()
+        presenter.stop()
+    }
 }

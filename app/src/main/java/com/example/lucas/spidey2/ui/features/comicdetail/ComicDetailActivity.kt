@@ -53,4 +53,9 @@ class ComicDetailActivity : AppCompatActivity(), ComicDetailView {
             comic_detail_image.loadUrl(comic.thumbnailUrl)
         }
     }
+
+    override fun onStop() {
+        super.onStop()
+        presenter.stop()
+    }
 }
