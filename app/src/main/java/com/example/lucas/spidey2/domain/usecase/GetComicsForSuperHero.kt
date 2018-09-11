@@ -7,9 +7,22 @@ import io.reactivex.Observable
 import javax.inject.Inject
 
 
-class GetComicsForSuperHero @Inject constructor(private val comicRepository: ComicRepository) {
+class GetComicsForSuperHero @Inject constructor(private val comicRepository: ComicRepository)
+    : Usecase<List<Comic>> {
 
-    fun withParams(superHero: SuperHero, amount: Int, offset: Int): Observable<List<Comic>> {
+    lateinit var superHero: SuperHero
+    var amount: Int = -1
+    var offset: Int = -1
+
+    fun withParams(superHero: SuperHero, amount: Int, offset: Int): GetComicsForSuperHero {
+        this.superHero = superHero
+        this.amount = amount
+        this.offset = offset
+
+        return this
+    }
+
+    override fun getSubscribable(): Observable<List<Comic>> {
         return comicRepository.getListOfComics(superHero, amount, offset)
     }
 }

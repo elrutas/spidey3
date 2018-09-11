@@ -6,10 +6,16 @@ import io.reactivex.Observable
 import javax.inject.Inject
 
 
-class GetComic @Inject constructor(private val comicRepository: ComicRepository) {
+class GetComic @Inject constructor(private val comicRepository: ComicRepository) : Usecase<Comic> {
 
-    fun withParams(comicId: Int): Observable<Comic> {
+    var comicId : Int = -1
+
+    fun withParams(comicId: Int) : GetComic {
+        this.comicId = comicId
+        return this
+    }
+
+    override fun getSubscribable(): Observable<Comic> {
         return comicRepository.getComic(comicId)
-
     }
 }
