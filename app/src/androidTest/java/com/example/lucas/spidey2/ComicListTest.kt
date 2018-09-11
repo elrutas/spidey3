@@ -5,7 +5,7 @@ import android.support.test.rule.ActivityTestRule
 import android.support.test.runner.AndroidJUnit4
 import com.example.lucas.spidey2.di.daggerMockRule
 import com.example.lucas.spidey2.domain.repository.ComicRepository
-import com.example.lucas.spidey2.helpers.textIsDisplayed
+import com.example.lucas.spidey2.helpers.UITestHelpers.Companion.textIsDisplayed
 import com.example.lucas.spidey2.ui.features.comiclist.ComicListActivity
 import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.mock
