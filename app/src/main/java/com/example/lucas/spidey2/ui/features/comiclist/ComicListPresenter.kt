@@ -44,4 +44,9 @@ class ComicListPresenter @Inject constructor(val view: ComicListView,
         view.showComics(presentationMapper.map(state))
     }
 
+    override fun stop() {
+        super.stop()
+        state.status = ComicListState.Status.IDLE
+    }
+
 }

@@ -7,7 +7,7 @@ import io.reactivex.schedulers.Schedulers
 
 abstract class BasePresenter() {
 
-    val disposables: CompositeDisposable = CompositeDisposable()
+    var disposables: CompositeDisposable = CompositeDisposable()
 
     fun <ResultType> execute(usecase: Usecase<ResultType>,
                              onNext: (ResultType) -> Unit,
@@ -20,7 +20,8 @@ abstract class BasePresenter() {
         )
     }
 
-    fun stop() {
+    open fun stop() {
         disposables.dispose()
+        disposables = CompositeDisposable()
     }
 }
