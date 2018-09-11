@@ -5,6 +5,9 @@ import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.AttributeSet
 
+/*
+    This class was copied from https://github.com/chiuki/android-recyclerview
+ */
 class AutoFitGridRecyclerView : RecyclerView {
 
     var manager: GridLayoutManager? = null
