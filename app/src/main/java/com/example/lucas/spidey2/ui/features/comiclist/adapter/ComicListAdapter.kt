@@ -22,7 +22,7 @@ class ComicListAdapter(private val comicClick: (ComicPM) -> Unit,
 
     override fun getItemCount(): Int = items.size
 
-    fun addItems(newList: List<ComicListItem>) {
+    fun update(newList: List<ComicListItem>) {
         val diffResult = DiffUtil.calculateDiff(ComicListDiff(newList, items))
 
         this.items.clear()

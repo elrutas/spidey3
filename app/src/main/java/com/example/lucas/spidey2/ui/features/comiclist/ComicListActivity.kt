@@ -49,7 +49,7 @@ class ComicListActivity : AppCompatActivity(), ComicListView {
     }
 
     override fun showComics(items: List<ComicListItem>) {
-        comicListAdapter.addItems(items)
+        comicListAdapter.update(items)
     }
 
     override fun launchDetailActivity(comicId: Int, comicTitle: String) {
