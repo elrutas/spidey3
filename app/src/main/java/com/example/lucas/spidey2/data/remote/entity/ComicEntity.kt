@@ -1,7 +1,7 @@
 package com.example.lucas.spidey2.data.remote.entity
 
 class ComicEntity (
-        var id: String,
+        var id: Int,
         var digitalId: String,
         var title: String,
         var issueNumber: String,

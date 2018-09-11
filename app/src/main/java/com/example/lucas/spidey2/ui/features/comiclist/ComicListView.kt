@@ -5,4 +5,6 @@ import com.example.lucas.spidey2.ui.features.comiclist.adapter.items.ComicListIt
 interface ComicListView {
 
     fun showComics(items: List<ComicListItem>)
+
+    fun launchDetailActivity(comicId: Int)
 }

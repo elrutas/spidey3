@@ -40,7 +40,7 @@ class ComicListPresenter @Inject constructor(val view: ComicListView,
     }
 
     fun comicClicked(comic: ComicPM) {
-        Timber.d("Comic clicked ${comic.title}")
+        view.launchDetailActivity(comic.id)
     }
 
     private fun updateView() {
