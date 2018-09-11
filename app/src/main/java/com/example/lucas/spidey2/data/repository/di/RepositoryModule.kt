@@ -1,7 +1,7 @@
-package com.example.lucas.spidey2.data.remote.di
+package com.example.lucas.spidey2.data.repository.di
 
 import com.example.lucas.spidey2.data.remote.datastore.ComicDataStore
-import com.example.lucas.spidey2.domain.repository.ComicRepository
+import com.example.lucas.spidey2.data.repository.ComicRepository
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -11,7 +11,7 @@ class RepositoryModule {
 
     @Provides
     @Singleton
-    internal fun provideMarvelApiClient(comicDataStore: ComicDataStore): ComicRepository {
+    internal fun provideComicRepository(comicDataStore: ComicDataStore): ComicRepository {
         return ComicRepository(comicDataStore)
     }
 }

@@ -4,7 +4,7 @@ import android.content.Intent
 import android.support.test.rule.ActivityTestRule
 import android.support.test.runner.AndroidJUnit4
 import com.example.lucas.spidey2.di.daggerMockRule
-import com.example.lucas.spidey2.domain.repository.ComicRepository
+import com.example.lucas.spidey2.data.repository.ComicRepository
 import com.example.lucas.spidey2.helpers.UITestHelpers.Companion.toolbarTitleIs
 import com.example.lucas.spidey2.helpers.UITestHelpers.Companion.viewWithText
 import com.example.lucas.spidey2.internal.utils.testing.ComicMother

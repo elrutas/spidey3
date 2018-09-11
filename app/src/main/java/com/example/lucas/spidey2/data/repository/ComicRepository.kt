@@ -1,4 +1,4 @@
-package com.example.lucas.spidey2.domain.repository
+package com.example.lucas.spidey2.data.repository
 
 import com.example.lucas.spidey2.data.remote.datastore.ComicDataStore
 import com.example.lucas.spidey2.domain.model.Comic

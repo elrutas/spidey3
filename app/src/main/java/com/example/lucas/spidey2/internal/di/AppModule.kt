@@ -3,7 +3,7 @@ package com.example.lucas.spidey2.internal.di
 import com.example.lucas.spidey2.R
 import com.example.lucas.spidey2.SpideyApp
 import com.example.lucas.spidey2.data.remote.di.MarvelApiModule
-import com.example.lucas.spidey2.data.remote.di.RepositoryModule
+import com.example.lucas.spidey2.data.repository.di.RepositoryModule
 import dagger.Module
 import dagger.Provides
 import javax.inject.Named
