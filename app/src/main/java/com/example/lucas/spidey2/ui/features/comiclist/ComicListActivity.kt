@@ -30,7 +30,6 @@ class ComicListActivity : AppCompatActivity(), ComicListView {
         setupComicList()
     }
 
-
     override fun onResume() {
         super.onResume()
         presenter.loadComics()

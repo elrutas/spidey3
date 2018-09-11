@@ -18,11 +18,24 @@ class ComicDataStore @Inject constructor(private val marvelApi: MarvelApi,
     val comicMapper: ComicMapper = ComicMapper()
 
     fun getListOfComics(superHeroId: String, amount: Int, offset: Int): Observable<List<Comic>> {
+        val (timestamp, hash) = getTimestampAndHash()
+
+        return marvelApi.getCharacterComicsData(superHeroId, timestamp, publicApiKey, hash, amount, offset)
+                .map { comicMapper.map(it) }
+    }
+
+    fun getComic(comicId: Int): Observable<List<Comic>> {
+        val (timestamp, hash) = getTimestampAndHash()
+
+        return marvelApi.getComic(comicId, timestamp, publicApiKey, hash)
+                .map { comicMapper.map(it) }
+    }
+
+    fun getTimestampAndHash(): Pair<String, String> {
         val calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"))
         val timestamp = calendar.timeInMillis / 1000L
         val hash: String = CreateHashUtil.md5(timestamp.toString() + privateApiKey + publicApiKey)
 
-        return marvelApi.getCharacterComicsData(superHeroId, timestamp.toString(), publicApiKey, hash, amount, offset)
-                .map { comicMapper.map(it) }
+        return Pair<String, String>(timestamp.toString(), hash)
     }
 }

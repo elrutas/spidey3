@@ -17,4 +17,11 @@ interface MarvelApi {
             @Query("hash") md5Hash: String,
             @Query("limit") limit: Int,
             @Query("offset") offset: Int): Observable<ComicDataWrapperEntity>
+
+    @GET("/v1/public/comics/{comicId}")
+    fun getComic(
+            @Path("comicId") comicId: Int,
+            @Query("ts") timestamp: String,
+            @Query("apikey") api_key: String,
+            @Query("hash") md5Hash: String): Observable<ComicDataWrapperEntity>
 }
