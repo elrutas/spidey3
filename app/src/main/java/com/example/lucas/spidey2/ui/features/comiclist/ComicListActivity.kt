@@ -2,11 +2,12 @@ package com.example.lucas.spidey2.ui.features.comiclist
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.DefaultItemAnimator
 import com.example.lucas.spidey2.R
-import com.example.lucas.spidey2.domain.model.Comic
 import com.example.lucas.spidey2.internal.di.Injector
 import com.example.lucas.spidey2.ui.features.comiclist.adapter.ComicListAdapter
 import com.example.lucas.spidey2.ui.features.comiclist.adapter.EndlessRecyclerViewScrollListener
+import com.example.lucas.spidey2.ui.features.comiclist.adapter.items.ComicListItem
 import com.example.lucas.spidey2.ui.features.comiclist.di.ComicListModule
 import kotlinx.android.synthetic.main.activity_comic_list.*
 import javax.inject.Inject
@@ -30,7 +31,7 @@ class ComicListActivity : AppCompatActivity(), ComicListView {
 
     override fun onResume() {
         super.onResume()
-        presenter.getComics()
+        presenter.loadComics()
     }
 
     private fun setupComicList() {
@@ -38,14 +39,15 @@ class ComicListActivity : AppCompatActivity(), ComicListView {
 
         comic_list_grid.setHasFixedSize(true)
         comic_list_grid.adapter = comicListAdapter
+        (comic_list_grid.itemAnimator as DefaultItemAnimator).supportsChangeAnimations = false
         comic_list_grid.addOnScrollListener(object : EndlessRecyclerViewScrollListener(comic_list_grid.manager!!) {
             override fun onLoadMore(page: Int, totalItemsCount: Int) {
-                presenter.getComics()
+                presenter.loadComics()
             }
         })
     }
 
-    override fun showComics(comics: List<Comic>) {
-        comicListAdapter.addComics(comics)
+    override fun showComics(items: List<ComicListItem>) {
+        comicListAdapter.addItems(items)
     }
 }

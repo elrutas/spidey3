@@ -1,52 +1,74 @@
 package com.example.lucas.spidey2.ui.features.comiclist.adapter
 
+import android.support.v7.util.DiffUtil
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.lucas.spidey2.R
-import com.example.lucas.spidey2.domain.model.Comic
 import com.example.lucas.spidey2.internal.extensions.loadUrl
+import com.example.lucas.spidey2.ui.features.comiclist.adapter.items.ComicListItem
+import com.example.lucas.spidey2.ui.features.comiclist.adapter.items.ComicPM
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.comic_list_item.*
-import android.support.v7.util.DiffUtil
 
 
-class ComicListAdapter(val itemClick: (Comic) -> Unit) : RecyclerView.Adapter<ComicListAdapter.ComicItemViewHolder>() {
+class ComicListAdapter(private val comicClick: (ComicPM) -> Unit) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    val comicList: MutableList<Comic> = mutableListOf()
+    val items: MutableList<ComicListItem> = mutableListOf()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ComicItemViewHolder {
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.comic_list_item, parent, false)
-        return ComicItemViewHolder(itemView, itemClick)
-    }
+    override fun getItemCount(): Int = items.size
 
-    override fun getItemCount(): Int = comicList.size
+    fun addItems(newList: List<ComicListItem>) {
+        val diffResult = DiffUtil.calculateDiff(ComicListDiff(newList, items))
 
-    override fun onBindViewHolder(holder: ComicItemViewHolder, position: Int) {
-        val comic = comicList.get(holder.adapterPosition)
-        holder.bind(comic)
-    }
-
-    fun addComics(newList: List<Comic>) {
-        val diffResult = DiffUtil.calculateDiff(ComicListDiff(newList, comicList))
-
-        this.comicList.clear()
-        this.comicList.addAll(newList)
+        this.items.clear()
+        this.items.addAll(newList)
 
         diffResult.dispatchUpdatesTo(this)
     }
 
-    inner class ComicItemViewHolder(override val containerView: View, private val itemClick: (Comic) -> Unit)
+    override fun getItemViewType(position: Int): Int {
+        return items[position].type.value
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        return when(viewType) {
+            ComicListItem.Type.COMIC.value -> createComicViewHolder(parent)
+            ComicListItem.Type.LOADING_ITEM.value -> createLoadingItemViewHolder(parent)
+            else -> throw RuntimeException("Not supported item type: $viewType")
+        }
+    }
+
+    private fun createComicViewHolder(parent: ViewGroup): ComicItemViewHolder {
+        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.comic_list_item, parent, false)
+        return ComicItemViewHolder(itemView, comicClick)
+    }
+
+    private fun createLoadingItemViewHolder(parent: ViewGroup): LoadingItemViewHolder {
+        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.loading_list_item, parent, false)
+        return LoadingItemViewHolder(itemView)
+    }
+
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        val listItem = items.get(holder.adapterPosition)
+        when(holder) {
+            is ComicItemViewHolder -> holder.bind(listItem as ComicPM)
+        }
+    }
+
+    inner class ComicItemViewHolder(override val containerView: View, private val itemClick: (ComicPM) -> Unit)
         : RecyclerView.ViewHolder(containerView), LayoutContainer {
 
-        fun bind(comic: Comic) {
+        fun bind(comic: ComicPM) {
             with(comic) {
                 comic_title.text = title
                 comic_thumbnail.loadUrl(thumbnailUrl)
-                card_view.setOnClickListener { itemClick.invoke(comicList[adapterPosition]) }
+                card_view.setOnClickListener { itemClick.invoke(items[adapterPosition] as ComicPM) }
             }
         }
     }
+
+    inner class LoadingItemViewHolder(containerView: View) : RecyclerView.ViewHolder(containerView)
 }
 
