@@ -28,6 +28,15 @@ android {
                     'src/main/res/features/comicdetail'
             ]
         }
+
+        String testMothersDir = 'src/testhelpers/java'
+
+        test {
+            java.srcDir testMothersDir
+        }
+        androidTest {
+            java.srcDir testMothersDir
+        }
     }
 }
 
