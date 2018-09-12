@@ -8,7 +8,7 @@ All the layers are in the same module, so having an interface with a single impl
 
 For the UI layer it follows MVP pattern.
 
-Rx is used in repository methods, so all usecases need to be subcribed to. For convenience, I've put a method to excute usecases in the BasePresenter class that presenters can extend.
+Rx is used in repository methods, so all usecases need to be subcribed to. For convenience, I've put a method to execute usecases in the BasePresenter class that presenters can extend.
 
 
 Dependency injection is used for almost everything:
@@ -18,13 +18,23 @@ Dependency injection is used for almost everything:
 
 In ComicListActivity, a scroller is attached to the grid view so that it will trigger a new load request when there's less than 4 items after the current scroll position. 
 This activity also has a State class where the curernt state is saved. There's a mapper that takes this state as a parameter and outputs view models for the view.
-The recycler view in supports 3 types of views, I'm used to using [Renderers](https://github.com/pedrovgs/Renderers) to achieve this functionality, but I was curious to see how it would look using Kotlin and kotlin extensions. The end result is quite simpler than how it was with java and findViewById()
+The recycler view supports 3 types of views, I'm used to using [Renderers](https://github.com/pedrovgs/Renderers) to achieve this functionality, but I was curious to see how it would look using Kotlin and kotlin extensions. The end result is quite simpler than how it was with java and findViewById()
+
+I'm using DiffUtil to update the items in ComicList, although it's not very practical in this particular scenario since we are only adding elements to the list. In any case, I'm used to it and wanted to have it already in place. On the other hand, DiffUtil is causing a warning message when it updates the list while it's being scrolled, I need to look into that.
 
 Set up    <==== VERY IMPORTANT
 ------
 
 Clone the project and set a real API key in [config.xml](app/src/main/res/common/values/config.xml). You can get one [here](http://developer.marvel.com/documentation/getting_started). 
 Without an API key you will only see the error state.
+
+Roadmap
+-------
+- Add more tests for ComicDetailActivity
+- Add unit tests for usecases
+- Save state in an orientation change. Look into [ViewModels](https://developer.android.com/topic/libraries/architecture/viewmodel) to check what they are capable of.
+- Introduce a cache dataStore so I can give a try to [Room](https://developer.android.com/topic/libraries/architecture/room), which I haven't tried yet
+- Improve the UI, it's very basic now
 
 
 Screenshots
