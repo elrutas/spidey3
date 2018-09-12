@@ -3,6 +3,7 @@ package com.example.lucas.spidey2.helpers
 import android.support.test.InstrumentationRegistry
 import android.support.test.espresso.Espresso
 import android.support.test.espresso.Espresso.onView
+import android.support.test.espresso.action.ViewActions.click
 import android.support.test.espresso.assertion.ViewAssertions
 import android.support.test.espresso.assertion.ViewAssertions.matches
 import android.support.test.espresso.contrib.RecyclerViewActions
@@ -75,5 +76,11 @@ class UITestHelpers { companion object {
     fun scrollToComicListPosition(position: Int) {
         onView(allOf(withId(R.id.comic_list_grid), isDisplayed()))
                 .perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(position))
+    }
+
+    fun clickOnComicListPosition(position: Int) {
+        scrollToComicListPosition(position)
+        onView(withId(R.id.comic_list_grid))
+                .perform(RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(position, click()))
     }
 } }

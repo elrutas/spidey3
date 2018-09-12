@@ -6,7 +6,10 @@ import android.support.test.runner.AndroidJUnit4
 import com.example.lucas.spidey2.data.repository.ComicRepository
 import com.example.lucas.spidey2.di.daggerMockRule
 import com.example.lucas.spidey2.domain.model.Comic
+import com.example.lucas.spidey2.helpers.UITestHelpers.Companion.clickOnComicListPosition
 import com.example.lucas.spidey2.helpers.UITestHelpers.Companion.textInViewInComicListPosition
+import com.example.lucas.spidey2.helpers.UITestHelpers.Companion.toolbarTitleIs
+import com.example.lucas.spidey2.helpers.UITestHelpers.Companion.viewWithText
 import com.example.lucas.spidey2.internal.utils.testing.ComicMother
 import com.example.lucas.spidey2.ui.features.comiclist.ComicListActivity
 import com.nhaarman.mockito_kotlin.any
@@ -17,6 +20,7 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mockito.`when`
+import java.util.*
 
 @RunWith(AndroidJUnit4::class)
 class ComicListTest {
@@ -59,5 +63,24 @@ class ComicListTest {
         activityRule.launchActivity(Intent())
 
         textInViewInComicListPosition(0, R.id.comic_title, R.string.comic_list_item_loading)
+    }
+
+    @Test
+    fun when_clicking_on_comic_then_comic_detail_activity_starts() {
+        val comics = ComicMother.listOfComics(20)
+        val positionToClick = Random().nextInt(10)
+
+        `when`(comicRepository.getListOfComics(any(), any(), any()))
+                .thenReturn(Observable.just(comics))
+        `when`(comicRepository.getComic(comics[positionToClick].id))
+                .thenReturn(Observable.just(comics[positionToClick]))
+
+        activityRule.launchActivity(Intent())
+
+        clickOnComicListPosition(positionToClick)
+
+        toolbarTitleIs(comics[positionToClick].title)
+        viewWithText(R.id.comic_detail_title, comics[positionToClick].title)
+        viewWithText(R.id.comic_detail_description, comics[positionToClick].description)
     }
 }
