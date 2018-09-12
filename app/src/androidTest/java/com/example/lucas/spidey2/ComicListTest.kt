@@ -5,12 +5,14 @@ import android.support.test.rule.ActivityTestRule
 import android.support.test.runner.AndroidJUnit4
 import com.example.lucas.spidey2.data.repository.ComicRepository
 import com.example.lucas.spidey2.di.daggerMockRule
+import com.example.lucas.spidey2.domain.model.Comic
 import com.example.lucas.spidey2.helpers.UITestHelpers.Companion.textInViewInComicListPosition
 import com.example.lucas.spidey2.internal.utils.testing.ComicMother
 import com.example.lucas.spidey2.ui.features.comiclist.ComicListActivity
 import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.mock
 import io.reactivex.Observable
+import io.reactivex.subjects.PublishSubject
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -45,5 +47,17 @@ class ComicListTest {
         for (index in 0..10) {
             textInViewInComicListPosition(index, R.id.comic_title, comics[index].title)
         }
+    }
+
+    @Test
+    fun when_usecase_has_not_returned_yet_then_loading_card_is_displayed() {
+        val publisher: PublishSubject<List<Comic>> = PublishSubject.create()
+
+        `when`(comicRepository.getListOfComics(any(), any(), any()))
+                .thenReturn(publisher)
+
+        activityRule.launchActivity(Intent())
+
+        textInViewInComicListPosition(0, R.id.comic_title, R.string.comic_list_item_loading)
     }
 }
