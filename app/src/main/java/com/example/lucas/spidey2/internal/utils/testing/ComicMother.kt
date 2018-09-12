@@ -13,5 +13,15 @@ class ComicMother {
                     listOf("http://i.annihil.us/u/prod/marvel/i/mg/6/03/5a724221d7369.jpg")
             )
         }
+
+        fun listOfComics(size: Int) : List<Comic> {
+            return MutableList(size) {
+                index -> Comic(index,
+                    "Shiny Title $index",
+                    "http://i.annihil.us/u/prod/marvel/i/mg/6/03/5a724221d7369.jpg",
+                    "This comic is awesome $index",
+                    listOf("http://i.annihil.us/u/prod/marvel/i/mg/6/03/5a724221d7369.jpg"))
+            }
+        }
     }
 }

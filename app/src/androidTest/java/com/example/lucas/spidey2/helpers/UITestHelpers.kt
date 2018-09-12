@@ -2,12 +2,19 @@ package com.example.lucas.spidey2.helpers
 
 import android.support.test.InstrumentationRegistry
 import android.support.test.espresso.Espresso
+import android.support.test.espresso.Espresso.onView
 import android.support.test.espresso.assertion.ViewAssertions
+import android.support.test.espresso.assertion.ViewAssertions.matches
+import android.support.test.espresso.contrib.RecyclerViewActions
 import android.support.test.espresso.matcher.ViewMatchers
+import android.support.test.espresso.matcher.ViewMatchers.*
+import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
 import android.view.View
 import android.widget.TextView
+import com.example.lucas.spidey2.R
 import org.hamcrest.CoreMatchers
+import org.hamcrest.CoreMatchers.allOf
 
 class UITestHelpers { companion object {
 
@@ -54,4 +61,19 @@ class UITestHelpers { companion object {
         )).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
     }
 
+    fun textInViewInComicListPosition(position: Int, viewId: Int, resourceId: Int) {
+        textInViewInComicListPosition(position,viewId, getString(resourceId))
+    }
+
+    fun textInViewInComicListPosition(position: Int, viewId: Int, text: String) {
+        scrollToComicListPosition(position)
+        onView(allOf(RecyclerViewMatcher.withRecyclerView(R.id.comic_list_grid)
+                .atPositionOnView(position, viewId), isDisplayed()))
+                .check(matches(withText(text)))
+    }
+
+    fun scrollToComicListPosition(position: Int) {
+        onView(allOf(withId(R.id.comic_list_grid), isDisplayed()))
+                .perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(position))
+    }
 } }

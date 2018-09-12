@@ -5,7 +5,8 @@ import android.support.test.rule.ActivityTestRule
 import android.support.test.runner.AndroidJUnit4
 import com.example.lucas.spidey2.data.repository.ComicRepository
 import com.example.lucas.spidey2.di.daggerMockRule
-import com.example.lucas.spidey2.helpers.UITestHelpers.Companion.textIsDisplayed
+import com.example.lucas.spidey2.helpers.UITestHelpers.Companion.textInViewInComicListPosition
+import com.example.lucas.spidey2.internal.utils.testing.ComicMother
 import com.example.lucas.spidey2.ui.features.comiclist.ComicListActivity
 import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.mock
@@ -30,7 +31,19 @@ class ComicListTest {
 
         activityRule.launchActivity(Intent())
 
-        Thread.sleep(100)
-        textIsDisplayed(R.string.comic_list_item_error)
+        textInViewInComicListPosition(0, R.id.error_list_item_title, R.string.comic_list_item_error)
+    }
+
+    @Test
+    fun when_comics_are_received_then_titles_are_displayed_in_cards() {
+        val comics = ComicMother.listOfComics(20)
+        `when`(comicRepository.getListOfComics(any(), any(), any()))
+                .thenReturn(Observable.just(comics))
+
+        activityRule.launchActivity(Intent())
+
+        for (index in 0..10) {
+            textInViewInComicListPosition(index, R.id.comic_title, comics[index].title)
+        }
     }
 }
