@@ -8,4 +8,5 @@
     <!--the most common cover aspect ratio-->
     <dimen name="card_width">158dp</dimen>
     <dimen name="card_thumbnail_height">240dp</dimen>
+    <dimen name="card_side_margin">20dp</dimen>
 </resources>

@@ -6,7 +6,7 @@
     android:layout_gravity="center"
     android:layout_width="@dimen/card_width"
     android:layout_height="300dp"
-    android:layout_margin="20dp"
+    android:layout_margin="@dimen/card_side_margin"
     android:foreground="?selectableItemBackground"
     android:background="@color/red"
     card_view:cardCornerRadius="4dp">
