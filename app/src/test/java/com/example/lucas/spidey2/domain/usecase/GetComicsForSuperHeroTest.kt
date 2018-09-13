@@ -1,7 +1,6 @@
 package com.example.lucas.spidey2.domain.usecase
 
 import com.example.lucas.spidey2.data.repository.ComicRepository
-import com.example.lucas.spidey2.di.JUnitDaggerMockRule
 import com.example.lucas.spidey2.domain.model.Comic
 import com.example.lucas.spidey2.domain.model.SuperHero
 import com.example.lucas.spidey2.helpers.BaseUsecaseTest
@@ -10,13 +9,10 @@ import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.mock
 import io.reactivex.Observable
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
 import org.mockito.Mockito.`when`
 
 class GetComicsForSuperHeroTest : BaseUsecaseTest<List<Comic>>() {
-
-    @get:Rule val rule = JUnitDaggerMockRule()
 
     val comicRepository: ComicRepository = mock()
     lateinit var getComicsForSuperHero: GetComicsForSuperHero

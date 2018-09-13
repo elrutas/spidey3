@@ -1,12 +1,16 @@
 package com.example.lucas.spidey2.helpers
 
+import com.example.lucas.spidey2.di.jUnitDaggerMockRule
 import com.example.lucas.spidey2.domain.usecase.Usecase
 import io.reactivex.observers.TestObserver
 import io.reactivex.schedulers.TestScheduler
 import org.junit.Before
+import org.junit.Rule
 import java.util.concurrent.TimeUnit
 
 abstract class BaseUsecaseTest<T> {
+
+    @get:Rule val rule = jUnitDaggerMockRule()
 
     lateinit var testSubscriber: TestObserver<T>
     lateinit var testScheduler: TestScheduler
