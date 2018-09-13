@@ -1,4 +1,4 @@
-package com.example.lucas.spidey2
+package com.example.lucas.spidey2.di
 
 import com.example.lucas.spidey2.data.repository.di.RepositoryModule
 import com.example.lucas.spidey2.internal.di.AppComponent
