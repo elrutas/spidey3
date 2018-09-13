@@ -80,12 +80,25 @@ dependencies {
 
     implementation "com.jakewharton.timber:timber:4.5.1"
 
+    //Unit test dependencies
+    def mockitoVersion = "2.19.0"
+    testImplementation "org.mockito:mockito-core:$mockitoVersion"
+    testImplementation "org.mockito:mockito-inline:$mockitoVersion"
+
+    def mockitoKotlinVersion = "1.5.0"
+    testImplementation("com.nhaarman:mockito-kotlin-kt1.1:$mockitoKotlinVersion") {
+        exclude group: 'org.jetbrains.kotlin'
+    }
+
+    def daggerMockVersion = "0.8.4"
+    testImplementation "com.github.fabioCollini.daggermock:daggermock-kotlin:$daggerMockVersion"
+
     // Instrumentation test dependencies
-    androidTestImplementation 'com.github.fabioCollini.daggermock:daggermock-kotlin:0.8.4'
+    androidTestImplementation "com.github.fabioCollini.daggermock:daggermock-kotlin:$daggerMockVersion"
 
     androidTestImplementation 'com.github.tmurakami:dexopener:1.0.4'
-    androidTestImplementation "org.mockito:mockito-android:2.8.8"
-    androidTestImplementation('com.nhaarman:mockito-kotlin-kt1.1:1.5.0') {
+    androidTestImplementation 'org.mockito:mockito-android:2.8.8'
+    androidTestImplementation("com.nhaarman:mockito-kotlin-kt1.1:$mockitoKotlinVersion") {
         exclude group: 'org.jetbrains.kotlin'
     }
 
