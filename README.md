@@ -30,8 +30,8 @@ Without an API key you will only see the error state.
 
 Roadmap
 -------
-- Add more tests for ComicDetailActivity
-- Add unit tests for usecases
+- ~~Add more tests for ComicDetailActivity~~
+- ~~Add unit tests for usecases~~
 - Save state in an orientation change. Look into [ViewModels](https://developer.android.com/topic/libraries/architecture/viewmodel) to check what they are capable of.
 - Introduce a cache dataStore so I can give a try to [Room](https://developer.android.com/topic/libraries/architecture/room), which I haven't tried yet
 - Improve the UI, it's very basic now
