@@ -20,7 +20,9 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.features.comicdetail.ComicDetailActivity"/>
+        <activity android:name=".ui.features.comicdetail.ComicDetailActivity"
+            android:theme="@style/Theme.Design.NoActionBar"/>
+
     </application>
 
 </manifest>
