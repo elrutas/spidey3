@@ -8,7 +8,6 @@ import com.example.lucas.spidey2.di.daggerMockRule
 import com.example.lucas.spidey2.domain.model.Comic
 import com.example.lucas.spidey2.helpers.UITestHelpers.Companion.clickOnComicListPosition
 import com.example.lucas.spidey2.helpers.UITestHelpers.Companion.textInViewInComicListPosition
-import com.example.lucas.spidey2.helpers.UITestHelpers.Companion.toolbarTitleIs
 import com.example.lucas.spidey2.helpers.UITestHelpers.Companion.viewWithText
 import com.example.lucas.spidey2.internal.utils.testing.ComicMother
 import com.example.lucas.spidey2.ui.features.comiclist.ComicListActivity
@@ -79,7 +78,6 @@ class ComicListTest {
 
         clickOnComicListPosition(positionToClick)
 
-        toolbarTitleIs(comics[positionToClick].title)
         viewWithText(R.id.comic_detail_title, comics[positionToClick].title)
         viewWithText(R.id.comic_detail_description, comics[positionToClick].description)
     }

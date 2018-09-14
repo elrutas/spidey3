@@ -41,12 +41,12 @@ class ComicDetailActivity : AppCompatActivity(), ComicDetailView {
         val comicTitle = intent.getStringExtra(COMIC_TITLE_EXTRA)
         val comicThumbnailUrl = intent.getStringExtra(COMIC_THUMBNAIL)
 
-        if (comicId  == -1 || comicThumbnailUrl == null) {
+        if (comicId  == -1 || comicThumbnailUrl == null || comicTitle == null) {
             finish()  // TODO: more "gentle" error handling
             return
         }
 
-        title = comicTitle
+        comic_detail_title.text = comicTitle
         loadThumbnail(comicThumbnailUrl)
         presenter.getComic(comicId)
     }
@@ -73,9 +73,7 @@ class ComicDetailActivity : AppCompatActivity(), ComicDetailView {
     }
 
     override fun showComic(comic: Comic) {
-        comic_detail_title.text = comic.title
         comic_detail_description.text = comic.description
-
     }
 
     override fun onStop() {

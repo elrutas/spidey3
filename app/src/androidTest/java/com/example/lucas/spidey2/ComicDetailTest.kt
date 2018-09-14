@@ -5,7 +5,6 @@ import android.support.test.rule.ActivityTestRule
 import android.support.test.runner.AndroidJUnit4
 import com.example.lucas.spidey2.data.repository.ComicRepository
 import com.example.lucas.spidey2.di.daggerMockRule
-import com.example.lucas.spidey2.helpers.UITestHelpers.Companion.toolbarTitleIs
 import com.example.lucas.spidey2.helpers.UITestHelpers.Companion.viewWithText
 import com.example.lucas.spidey2.internal.utils.testing.ComicMother
 import com.example.lucas.spidey2.ui.features.comicdetail.ComicDetailActivity
@@ -41,18 +40,17 @@ class ComicDetailTest {
     }
 
     @Test
-    fun when_intent_contains_title_then_is_displayed_in_bar() {
+    fun when_intent_contains_title_then_is_displayed_at_the_bottom() {
         val title = "Awesome Comic"
         activityRule.launchActivity(getIntentWithExtras(title))
 
-        toolbarTitleIs(title)
+        viewWithText(R.id.comic_detail_title, title)
     }
 
     @Test
-    fun when_comic_is_loaded_then_comic_title_and_description_are_displayed() {
+    fun when_comic_is_loaded_then_comic_description_is_displayed() {
         activityRule.launchActivity(getIntentWithExtras())
 
-        viewWithText(R.id.comic_detail_title, comic.title)
         viewWithText(R.id.comic_detail_description, comic.description)
     }
 
