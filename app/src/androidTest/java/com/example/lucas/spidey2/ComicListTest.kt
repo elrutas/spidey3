@@ -37,7 +37,7 @@ class ComicListTest {
 
         activityRule.launchActivity(Intent())
 
-        textInViewInComicListPosition(0, R.id.error_list_item_title, R.string.comic_list_item_error)
+        textInViewInComicListPosition(0, R.id.comic_list_error_item_title, R.string.comic_list_item_error)
     }
 
     @Test
@@ -62,7 +62,7 @@ class ComicListTest {
 
         activityRule.launchActivity(Intent())
 
-        textInViewInComicListPosition(0, R.id.comic_title, R.string.comic_list_item_loading)
+        textInViewInComicListPosition(0, R.id.comic_list_loading_item_title, R.string.comic_list_item_loading)
     }
 
     @Test

@@ -74,7 +74,7 @@ class ComicListAdapter(private val comicClick: (ComicPM) -> Unit,
             with(comic) {
                 comic_title.text = title
                 comic_thumbnail.loadUrl(thumbnailUrl)
-                card_view.setOnClickListener { itemClick.invoke(items[adapterPosition] as ComicPM) }
+                caomic_list_item_card_view.setOnClickListener { itemClick.invoke(items[adapterPosition] as ComicPM) }
             }
         }
     }
@@ -85,7 +85,7 @@ class ComicListAdapter(private val comicClick: (ComicPM) -> Unit,
         : RecyclerView.ViewHolder(containerView), LayoutContainer {
 
         fun bind() {
-            error_list_item_card_view.setOnClickListener{ retryClick.invoke() }
+            comic_list_error_item_card_view.setOnClickListener{ retryClick.invoke() }
         }
     }
 }
