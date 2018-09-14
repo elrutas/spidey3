@@ -68,19 +68,19 @@ class UITestHelpers { companion object {
 
     fun textInViewInComicListPosition(position: Int, viewId: Int, text: String) {
         scrollToComicListPosition(position)
-        onView(allOf(RecyclerViewMatcher.withRecyclerView(R.id.comic_list_grid)
+        onView(allOf(RecyclerViewMatcher.withRecyclerView(R.id.comic_list_recycler)
                 .atPositionOnView(position, viewId), isDisplayed()))
                 .check(matches(withText(text)))
     }
 
     fun scrollToComicListPosition(position: Int) {
-        onView(allOf(withId(R.id.comic_list_grid), isDisplayed()))
+        onView(allOf(withId(R.id.comic_list_recycler), isDisplayed()))
                 .perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(position))
     }
 
     fun clickOnComicListPosition(position: Int) {
         scrollToComicListPosition(position)
-        onView(withId(R.id.comic_list_grid))
+        onView(withId(R.id.comic_list_recycler))
                 .perform(RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(position, click()))
     }
 } }

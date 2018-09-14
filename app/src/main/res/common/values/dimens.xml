@@ -6,7 +6,9 @@
 
     <!--the relation between the next two values should be 0.659 to match -->
     <!--the most common cover aspect ratio-->
-    <dimen name="card_width">158dp</dimen>
-    <dimen name="card_thumbnail_height">240dp</dimen>
-    <dimen name="card_side_margin">20dp</dimen>
+    <dimen name="span_width">172dp</dimen>
+    <dimen name="card_width">150dp</dimen>
+    <dimen name="card_thumbnail_height">228dp</dimen>
+    <dimen name="card_side_margin">16dp</dimen>
+    <dimen name="comic_list_item_title_height">50dp</dimen>
 </resources>

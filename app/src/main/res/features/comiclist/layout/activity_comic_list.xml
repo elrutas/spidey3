@@ -7,11 +7,10 @@
     android:layout_height="match_parent"
     tools:context=".ui.features.comiclist.ComicListActivity">
 
-    <com.example.lucas.spidey2.ui.features.comiclist.customviews.AutoFitGridRecyclerView
-        android:id="@+id/comic_list_grid"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/comic_list_recycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:columnWidth="180dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"

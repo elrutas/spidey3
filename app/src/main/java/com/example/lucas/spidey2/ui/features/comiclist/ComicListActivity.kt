@@ -4,6 +4,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.DefaultItemAnimator
+import android.support.v7.widget.RecyclerView
+import android.support.v7.widget.StaggeredGridLayoutManager
+import android.util.DisplayMetrics
 import com.example.lucas.spidey2.R
 import com.example.lucas.spidey2.internal.di.Injector
 import com.example.lucas.spidey2.ui.features.comicdetail.ComicDetailActivity
@@ -38,14 +41,25 @@ class ComicListActivity : AppCompatActivity(), ComicListView {
     private fun setupComicList() {
         comicListAdapter = ComicListAdapter(presenter::comicClicked, presenter::loadComics)
 
-        comic_list_grid.setHasFixedSize(true)
-        comic_list_grid.adapter = comicListAdapter
-        (comic_list_grid.itemAnimator as DefaultItemAnimator).supportsChangeAnimations = false
-        comic_list_grid.addOnScrollListener(object : EndlessRecyclerViewScrollListener(comic_list_grid.manager!!) {
+        comic_list_recycler.setHasFixedSize(false)
+        comic_list_recycler.layoutManager = StaggeredGridLayoutManager(calculateSpanCount(), RecyclerView.VERTICAL)
+        comic_list_recycler.adapter = comicListAdapter
+        (comic_list_recycler.itemAnimator as DefaultItemAnimator).supportsChangeAnimations = false
+        comic_list_recycler.addOnScrollListener(object : EndlessRecyclerViewScrollListener(comic_list_recycler.layoutManager as StaggeredGridLayoutManager) {
             override fun onLoadMore(page: Int, totalItemsCount: Int) {
                 presenter.loadComics()
             }
         })
+    }
+
+    private fun calculateSpanCount(): Int {
+        val display = windowManager.defaultDisplay
+        val outMetrics = DisplayMetrics()
+        display.getMetrics(outMetrics)
+
+        val dpWidth = outMetrics.widthPixels.toFloat()
+        val itemWidth = getResources().getDimension(R.dimen.span_width)
+        return Math.round(dpWidth / itemWidth)
     }
 
     override fun showComics(items: List<ComicListItem>) {
