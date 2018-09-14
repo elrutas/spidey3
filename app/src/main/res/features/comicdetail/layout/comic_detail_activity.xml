@@ -2,52 +2,75 @@
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.features.comicdetail.ComicDetailActivity">
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true">
+    <ImageView
+        android:id="@+id/comic_detail_image"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:transitionName="@string/comic_thumbnail_transition"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
 
-        <LinearLayout
+    <android.support.constraint.Guideline
+        android:id="@+id/comic_detail_bottom_third_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.7"/>
+
+    <FrameLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/soft_grey"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/comic_detail_bottom_third_guideline"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <ScrollView
+            android:id="@+id/comic_detail_text_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <ImageView
-                android:id="@+id/comic_detail_image"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="6"/>
+            android:fillViewport="true"
+            >
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="4"
-                android:orientation="vertical">
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                >
 
                 <TextView
                     android:id="@+id/comic_detail_title"
-                    android:transitionName="@string/tran_name_title"
                     android:textSize="22sp"
                     android:fontFamily="sans-serif-condensed"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/whitish"
                     android:padding="@dimen/activity_vertical_margin"
-                    android:background="@color/red"/>
+                    tools:text="The comic title"
+                    />
 
                 <TextView
                     android:id="@+id/comic_detail_description"
                     android:padding="@dimen/activity_vertical_margin"
+                    android:textColor="@color/whitish"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    tools:text="A long description wth the wonders of super heroes and villains"
+                    />
 
             </LinearLayout>
 
-        </LinearLayout>
+        </ScrollView>
 
-    </ScrollView>
+    </FrameLayout>
 
 </android.support.constraint.ConstraintLayout>

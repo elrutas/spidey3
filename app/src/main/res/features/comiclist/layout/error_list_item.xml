@@ -37,7 +37,6 @@
 
     <Space
         android:id="@+id/comic_list_loading_item_title"
-        android:transitionName="@string/tran_name_title"
         android:layout_width="@dimen/card_width"
         android:layout_height="@dimen/comic_list_item_title_height"
         app:layout_constraintStart_toStartOf="parent"
