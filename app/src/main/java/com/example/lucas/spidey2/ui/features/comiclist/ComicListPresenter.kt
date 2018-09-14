@@ -1,5 +1,6 @@
 package com.example.lucas.spidey2.ui.features.comiclist
 
+import android.widget.ImageView
 import com.example.lucas.spidey2.domain.model.SuperHero
 import com.example.lucas.spidey2.domain.usecase.GetComicsForSuperHero
 import com.example.lucas.spidey2.ui.features.BasePresenter
@@ -36,8 +37,8 @@ class ComicListPresenter @Inject constructor(val view: ComicListView,
         )
     }
 
-    fun comicClicked(comic: ComicPM) {
-        view.launchDetailActivity(comic.id, comic.title)
+    fun comicClicked(comic: ComicPM, comicThumbnail: ImageView) {
+        view.launchDetailActivity(comic, comicThumbnail)
     }
 
     private fun updateView() {

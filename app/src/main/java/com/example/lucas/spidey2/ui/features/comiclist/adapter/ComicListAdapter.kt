@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import com.example.lucas.spidey2.R
 import com.example.lucas.spidey2.internal.extensions.loadUrl
 import com.example.lucas.spidey2.ui.features.comiclist.adapter.items.ComicListItem
@@ -14,7 +15,7 @@ import kotlinx.android.synthetic.main.comic_list_item.*
 import kotlinx.android.synthetic.main.error_list_item.*
 
 
-class ComicListAdapter(private val comicClick: (ComicPM) -> Unit,
+class ComicListAdapter(private val comicClick: (ComicPM, ImageView) -> Unit,
                        private val retryClick: () -> Unit
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -67,14 +68,14 @@ class ComicListAdapter(private val comicClick: (ComicPM) -> Unit,
         }
     }
 
-    inner class ComicItemViewHolder(override val containerView: View, private val itemClick: (ComicPM) -> Unit)
+    inner class ComicItemViewHolder(override val containerView: View, private val itemClick: (ComicPM, ImageView) -> Unit)
         : RecyclerView.ViewHolder(containerView), LayoutContainer {
 
         fun bind(comic: ComicPM) {
             with(comic) {
                 comic_title.text = title
                 comic_thumbnail.loadUrl(thumbnailUrl)
-                caomic_list_item_card_view.setOnClickListener { itemClick.invoke(items[adapterPosition] as ComicPM) }
+                caomic_list_item_card_view.setOnClickListener { itemClick.invoke(items[adapterPosition] as ComicPM, comic_thumbnail) }
             }
         }
     }
