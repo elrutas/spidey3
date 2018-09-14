@@ -35,14 +35,23 @@
             tools:text="The comic title"
             />
 
-        <TextView
-            android:id="@+id/comic_detail_description"
-            android:padding="@dimen/activity_vertical_margin"
-            android:textColor="@color/whitish"
+        <android.support.v4.widget.NestedScrollView
+            android:id="@+id/comic_detail_text_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:text="A long description wth the wonders of super heroes and villains"
-            />
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            >
+
+            <TextView
+                android:id="@+id/comic_detail_description"
+                android:padding="@dimen/activity_vertical_margin"
+                android:textColor="@color/whitish"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:text="A long description wth the wonders of super heroes and villains"
+                />
+
+        </android.support.v4.widget.NestedScrollView>
 
     </LinearLayout>
 
