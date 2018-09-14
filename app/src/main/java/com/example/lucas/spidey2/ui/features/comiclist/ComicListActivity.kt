@@ -35,11 +35,13 @@ class ComicListActivity : AppCompatActivity(), ComicListView {
                 .inject(this)
 
         setupComicList()
+        presenter.loadComics()
     }
 
     override fun onResume() {
         super.onResume()
-        presenter.loadComics()
+
+        presenter.checkStatusAndLoadIfNeeded()
     }
 
     private fun setupComicList() {

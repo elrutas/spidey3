@@ -7,6 +7,6 @@ class ComicListState {
     var comics = mutableListOf<Comic>()
 
     enum class Status {
-        IDLE, LOADING, ERROR
+        IDLE, LOADING, ERROR, NEEDS_LOAD
     }
 }

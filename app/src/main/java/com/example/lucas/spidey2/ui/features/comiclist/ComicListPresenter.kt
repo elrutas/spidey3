@@ -37,6 +37,13 @@ class ComicListPresenter @Inject constructor(val view: ComicListView,
         )
     }
 
+    override fun stop() {
+        super.stop()
+        if (state.status == ComicListState.Status.LOADING) {
+            state.status = ComicListState.Status.NEEDS_LOAD
+        }
+    }
+
     fun comicClicked(comic: ComicPM, comicThumbnail: ImageView) {
         view.launchDetailActivity(comic, comicThumbnail)
     }
@@ -45,9 +52,10 @@ class ComicListPresenter @Inject constructor(val view: ComicListView,
         view.showComics(presentationMapper.map(state))
     }
 
-    override fun stop() {
-        super.stop()
-        state.status = ComicListState.Status.IDLE
+    fun checkStatusAndLoadIfNeeded() {
+        if (state.status == ComicListState.Status.NEEDS_LOAD) {
+            loadComics()
+        }
     }
 
 }

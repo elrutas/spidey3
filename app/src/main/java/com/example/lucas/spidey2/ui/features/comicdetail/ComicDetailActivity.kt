@@ -52,7 +52,6 @@ class ComicDetailActivity : AppCompatActivity(), ComicDetailView {
     }
 
     private fun loadThumbnail(thumbnailUrl: String) {
-
         GlideApp.with(this)
                 .load(thumbnailUrl)
                 .fitCenter()
