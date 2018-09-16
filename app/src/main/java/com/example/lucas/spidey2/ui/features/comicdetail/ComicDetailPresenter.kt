@@ -28,17 +28,15 @@ class ComicDetailPresenter @Inject constructor(val view: ComicDetailView,
     fun showNextImage() {
         if (state.canShowNext()) {
             state.currentImageIndex++
+            updateDisplayedImage()
         }
-
-        updateDisplayedImage()
     }
 
     fun showPreviousImage() {
         if (state.canShowPrevious()) {
             state.currentImageIndex--
+            updateDisplayedImage()
         }
-
-        updateDisplayedImage()
     }
 
     private fun updateDisplayedImage() {
