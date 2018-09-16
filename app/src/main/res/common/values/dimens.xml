@@ -11,4 +11,6 @@
     <dimen name="card_thumbnail_height">228dp</dimen>
     <dimen name="card_side_margin">16dp</dimen>
     <dimen name="comic_list_item_title_height">50dp</dimen>
+    <dimen name="comic_detail_navigation_image_size">40dp</dimen>
+    <dimen name="comic_detail_navigation_image_radius">20dp</dimen>
 </resources>

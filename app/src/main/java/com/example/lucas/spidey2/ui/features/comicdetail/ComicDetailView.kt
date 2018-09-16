@@ -5,4 +5,6 @@ import com.example.lucas.spidey2.domain.model.Comic
 interface ComicDetailView {
 
     fun showComic(comic: Comic)
+
+    fun updateImage(imageUrl: String, canShowPrevious: Boolean, canShowNext: Boolean)
 }
