@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/comic_detail_parent_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.features.comicdetail.ComicDetailActivity">
@@ -15,6 +16,7 @@
         />
 
     <LinearLayout
+        android:id="@+id/comic_detail_bottom_sheet"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/soft_grey"

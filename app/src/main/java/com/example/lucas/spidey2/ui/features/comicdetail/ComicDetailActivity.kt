@@ -2,6 +2,7 @@ package com.example.lucas.spidey2.ui.features.comicdetail
 
 import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.support.design.widget.BottomSheetBehavior
 import android.support.v7.app.AppCompatActivity
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
@@ -34,6 +35,7 @@ class ComicDetailActivity : AppCompatActivity(), ComicDetailView {
                 .inject(this)
 
         getIntentExtra()
+        setupBottomSheet()
     }
 
     private fun getIntentExtra() {
@@ -69,6 +71,18 @@ class ComicDetailActivity : AppCompatActivity(), ComicDetailView {
 
                 })
                 .into(comic_detail_image)
+    }
+
+    private fun setupBottomSheet() {
+        comic_detail_parent_layout.setOnClickListener { _ ->
+            val bottomSheetBehaviour = BottomSheetBehavior.from(comic_detail_bottom_sheet)
+            if (bottomSheetBehaviour.state == BottomSheetBehavior.STATE_HIDDEN) {
+                bottomSheetBehaviour.state = BottomSheetBehavior.STATE_COLLAPSED
+            } else if (bottomSheetBehaviour.state == BottomSheetBehavior.STATE_EXPANDED
+                    || bottomSheetBehaviour.state == BottomSheetBehavior.STATE_COLLAPSED) {
+                bottomSheetBehaviour.state = BottomSheetBehavior.STATE_HIDDEN
+            }
+        }
     }
 
     override fun showComic(comic: Comic) {
