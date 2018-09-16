@@ -16,17 +16,20 @@ class ComicMapper {
         return comicEntityList.map { comicEntity ->
             Comic(comicEntity.id,
                     comicEntity.title,
-                    comicEntity.thumbnail.path + "." + comicEntity.thumbnail.extension,
+                    buildImageUrl(comicEntity.thumbnail.path, comicEntity.thumbnail.extension),
                     comicEntity.description ?: "",
-                    mapImageEntities(comicEntity.images)
+                    mapImageEntities(comicEntity.images, buildImageUrl(comicEntity.thumbnail.path, comicEntity.thumbnail.extension))
             )
         }
     }
 
-    private fun mapImageEntities(imageEntities: List<ComicImageEntity>): List<String> {
-        return imageEntities.map {
-            it.path + "." + it.extension
-        }
+    private fun mapImageEntities(imageEntities: List<ComicImageEntity>, thumbnailUrl: String): List<String> {
+        return imageEntities
+                .map { buildImageUrl(it.path,  it.extension) }
+                .sortedWith(compareBy { if (it == thumbnailUrl) -1 else 1 })
+    }
 
+    private fun buildImageUrl(path: String, extension: String): String {
+        return "$path.$extension"
     }
 }
