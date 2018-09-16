@@ -10,13 +10,13 @@ abstract class BasePresenter() {
     var disposables: CompositeDisposable = CompositeDisposable()
 
     fun <ResultType> execute(usecase: Usecase<ResultType>,
-                             onNext: (ResultType) -> Unit,
+                             onSuccess: (ResultType) -> Unit,
                              onError: (Throwable) -> Unit) {
         disposables.add(
                 usecase.getSubscribable()
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(onNext, onError)
+                        .subscribe(onSuccess, onError)
         )
     }
 

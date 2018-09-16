@@ -13,7 +13,7 @@ import com.example.lucas.spidey2.internal.utils.testing.ComicMother
 import com.example.lucas.spidey2.ui.features.comiclist.ComicListActivity
 import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.mock
-import io.reactivex.Observable
+import io.reactivex.Single
 import io.reactivex.subjects.PublishSubject
 import org.junit.Rule
 import org.junit.Test
@@ -32,7 +32,7 @@ class ComicListTest {
     @Test
     fun when_repository_returns_error_then_error_item_is_shown() {
         `when`(comicRepository.getListOfComics(any(), any(), any()))
-                .thenReturn(Observable.error(RuntimeException("Fetch fail")))
+                .thenReturn(Single.error(RuntimeException("Fetch fail")))
 
         activityRule.launchActivity(Intent())
 
@@ -43,7 +43,7 @@ class ComicListTest {
     fun when_comics_are_received_then_titles_are_displayed_in_cards() {
         val comics = ComicMother.listOfComics(20)
         `when`(comicRepository.getListOfComics(any(), any(), any()))
-                .thenReturn(Observable.just(comics))
+                .thenReturn(Single.just(comics))
 
         activityRule.launchActivity(Intent())
 
@@ -57,7 +57,7 @@ class ComicListTest {
         val publisher: PublishSubject<List<Comic>> = PublishSubject.create()
 
         `when`(comicRepository.getListOfComics(any(), any(), any()))
-                .thenReturn(publisher)
+                .thenReturn(publisher.singleOrError())
 
         activityRule.launchActivity(Intent())
 
@@ -70,9 +70,9 @@ class ComicListTest {
         val positionToClick = Random().nextInt(10)
 
         `when`(comicRepository.getListOfComics(any(), any(), any()))
-                .thenReturn(Observable.just(comics))
+                .thenReturn(Single.just(comics))
         `when`(comicRepository.getComic(comics[positionToClick].id))
-                .thenReturn(Observable.just(comics[positionToClick]))
+                .thenReturn(Single.just(comics[positionToClick]))
 
         activityRule.launchActivity(Intent())
 

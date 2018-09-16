@@ -3,7 +3,7 @@ package com.example.lucas.spidey2.domain.usecase
 import com.example.lucas.spidey2.data.repository.ComicRepository
 import com.example.lucas.spidey2.domain.model.Comic
 import com.example.lucas.spidey2.domain.model.SuperHero
-import io.reactivex.Observable
+import io.reactivex.Single
 import javax.inject.Inject
 import kotlin.properties.Delegates
 
@@ -23,7 +23,7 @@ class GetComicsForSuperHero @Inject constructor(private val comicRepository: Com
         return this
     }
 
-    override fun getSubscribable(): Observable<List<Comic>> {
+    override fun getSubscribable(): Single<List<Comic>> {
         return comicRepository.getListOfComics(superHero, amount, offset)
     }
 }

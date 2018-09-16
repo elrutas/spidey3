@@ -1,8 +1,8 @@
 package com.example.lucas.spidey2.domain.usecase
 
-import io.reactivex.Observable
+import io.reactivex.Single
 
 interface Usecase<ReturnType> {
 
-    fun getSubscribable(): Observable<ReturnType>
+    fun getSubscribable(): Single<ReturnType>
 }

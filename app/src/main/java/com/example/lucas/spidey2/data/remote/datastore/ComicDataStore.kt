@@ -4,7 +4,7 @@ import com.example.lucas.spidey2.data.remote.CreateHashUtil
 import com.example.lucas.spidey2.data.remote.MarvelApi
 import com.example.lucas.spidey2.data.remote.mapper.ComicMapper
 import com.example.lucas.spidey2.domain.model.Comic
-import io.reactivex.Observable
+import io.reactivex.Single
 import java.util.*
 import javax.inject.Inject
 import javax.inject.Named
@@ -17,14 +17,14 @@ class ComicDataStore @Inject constructor(private val marvelApi: MarvelApi,
 
     val comicMapper: ComicMapper = ComicMapper()
 
-    fun getListOfComics(superHeroId: String, amount: Int, offset: Int): Observable<List<Comic>> {
+    fun getListOfComics(superHeroId: String, amount: Int, offset: Int): Single<List<Comic>> {
         val (timestamp, hash) = getTimestampAndHash()
 
         return marvelApi.getCharacterComicsData(superHeroId, timestamp, publicApiKey, hash, amount, offset)
                 .map { comicMapper.map(it) }
     }
 
-    fun getComic(comicId: Int): Observable<List<Comic>> {
+    fun getComic(comicId: Int): Single<List<Comic>> {
         val (timestamp, hash) = getTimestampAndHash()
 
         return marvelApi.getComic(comicId, timestamp, publicApiKey, hash)

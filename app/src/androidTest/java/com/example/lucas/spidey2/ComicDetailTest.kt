@@ -10,7 +10,7 @@ import com.example.lucas.spidey2.internal.utils.testing.ComicMother
 import com.example.lucas.spidey2.ui.features.comicdetail.ComicDetailActivity
 import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.mock
-import io.reactivex.Observable
+import io.reactivex.Single
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
@@ -29,7 +29,7 @@ class ComicDetailTest {
 
     @Before
     fun setup() {
-        `when`(comicRepository.getComic(any())).thenReturn(Observable.just(comic))
+        `when`(comicRepository.getComic(any())).thenReturn(Single.just(comic))
     }
 
     @Test
