@@ -1,11 +1,14 @@
 package com.example.lucas.spidey2.ui.features.comicdetail
 
+import android.animation.ObjectAnimator
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.support.design.widget.BottomSheetBehavior
 import android.support.v7.app.AppCompatActivity
 import android.view.GestureDetector
 import android.view.View
+import android.view.animation.AccelerateDecelerateInterpolator
+import android.widget.LinearLayout
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
@@ -18,6 +21,7 @@ import com.example.lucas.spidey2.internal.utils.GlideApp
 import com.example.lucas.spidey2.ui.features.comicdetail.di.ComicDetailModule
 import kotlinx.android.synthetic.main.comic_detail_activity.*
 import javax.inject.Inject
+import kotlin.properties.Delegates
 
 class ComicDetailActivity : AppCompatActivity(), ComicDetailView {
 
@@ -29,6 +33,9 @@ class ComicDetailActivity : AppCompatActivity(), ComicDetailView {
 
     @Inject lateinit var presenter: ComicDetailPresenter
 
+    var translationAmount: Float by Delegates.notNull()
+    lateinit var bottomSheetBehaviour: BottomSheetBehavior<LinearLayout>
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.comic_detail_activity)
@@ -38,7 +45,17 @@ class ComicDetailActivity : AppCompatActivity(), ComicDetailView {
                 .inject(this)
 
         getIntentExtra()
-        setupBottomSheet()
+        setupResourcesForOverlayAnimation()
+    }
+
+    private fun setupResourcesForOverlayAnimation() {
+        val margin = resources.getDimension(R.dimen.activity_horizontal_margin)
+        val imageViewWidth = resources.getDimension(R.dimen.comic_detail_navigation_image_size)
+
+        translationAmount = imageViewWidth + margin
+        bottomSheetBehaviour = BottomSheetBehavior.from(comic_detail_bottom_sheet)
+
+        comic_detail_parent_layout.setOnClickListener { _ -> changeOverlayViewsVisibility() }
     }
 
     private fun getIntentExtra() {
@@ -76,18 +93,36 @@ class ComicDetailActivity : AppCompatActivity(), ComicDetailView {
                 .into(comic_detail_image)
     }
 
-    private fun setupBottomSheet() {
-        comic_detail_parent_layout.setOnClickListener { _ -> changeBottomSheetStatus() }
-    }
-
-    private fun changeBottomSheetStatus() {
-        val bottomSheetBehaviour = BottomSheetBehavior.from(comic_detail_bottom_sheet)
+    private fun changeOverlayViewsVisibility() {
         if (bottomSheetBehaviour.state == BottomSheetBehavior.STATE_HIDDEN) {
             bottomSheetBehaviour.state = BottomSheetBehavior.STATE_COLLAPSED
+            moveOutToRightAnimation(comic_detail_next_icon).reverse()
+            moveOutToLeftAnimation(comic_detail_previous_icon).reverse()
         } else if (bottomSheetBehaviour.state == BottomSheetBehavior.STATE_EXPANDED
                 || bottomSheetBehaviour.state == BottomSheetBehavior.STATE_COLLAPSED) {
             bottomSheetBehaviour.state = BottomSheetBehavior.STATE_HIDDEN
+            moveOutToRightAnimation(comic_detail_next_icon).start()
+            moveOutToLeftAnimation(comic_detail_previous_icon).start()
         }
+    }
+
+    private fun moveOutToRightAnimation(view: View): ObjectAnimator {
+        return translationAnimation(view, translationAmount)
+    }
+
+    private fun moveOutToLeftAnimation(view: View): ObjectAnimator {
+        return translationAnimation(view, -translationAmount)
+    }
+
+    private fun translationAnimation(view: View, translation: Float): ObjectAnimator {
+        val translateRight = ObjectAnimator.ofFloat(view, "translationX", 0f, translation)
+        with(translateRight) {
+            duration = 150
+            repeatCount = 0
+            interpolator = AccelerateDecelerateInterpolator()
+        }
+
+        return translateRight
     }
 
     override fun showComic(comic: Comic) {
