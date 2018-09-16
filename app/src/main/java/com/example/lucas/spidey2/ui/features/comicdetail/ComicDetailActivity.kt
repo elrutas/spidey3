@@ -4,6 +4,7 @@ import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.support.design.widget.BottomSheetBehavior
 import android.support.v7.app.AppCompatActivity
+import android.view.GestureDetector
 import android.view.View
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
@@ -45,7 +46,7 @@ class ComicDetailActivity : AppCompatActivity(), ComicDetailView {
         val comicTitle = intent.getStringExtra(COMIC_TITLE_EXTRA)
         val comicThumbnailUrl = intent.getStringExtra(COMIC_THUMBNAIL)
 
-        if (comicId  == -1 || comicThumbnailUrl == null || comicTitle == null) {
+        if (comicId == -1 || comicThumbnailUrl == null || comicTitle == null) {
             finish()  // TODO: more "gentle" error handling
             return
         }
@@ -76,14 +77,16 @@ class ComicDetailActivity : AppCompatActivity(), ComicDetailView {
     }
 
     private fun setupBottomSheet() {
-        comic_detail_parent_layout.setOnClickListener { _ ->
-            val bottomSheetBehaviour = BottomSheetBehavior.from(comic_detail_bottom_sheet)
-            if (bottomSheetBehaviour.state == BottomSheetBehavior.STATE_HIDDEN) {
-                bottomSheetBehaviour.state = BottomSheetBehavior.STATE_COLLAPSED
-            } else if (bottomSheetBehaviour.state == BottomSheetBehavior.STATE_EXPANDED
-                    || bottomSheetBehaviour.state == BottomSheetBehavior.STATE_COLLAPSED) {
-                bottomSheetBehaviour.state = BottomSheetBehavior.STATE_HIDDEN
-            }
+        comic_detail_parent_layout.setOnClickListener { _ -> changeBottomSheetStatus() }
+    }
+
+    private fun changeBottomSheetStatus() {
+        val bottomSheetBehaviour = BottomSheetBehavior.from(comic_detail_bottom_sheet)
+        if (bottomSheetBehaviour.state == BottomSheetBehavior.STATE_HIDDEN) {
+            bottomSheetBehaviour.state = BottomSheetBehavior.STATE_COLLAPSED
+        } else if (bottomSheetBehaviour.state == BottomSheetBehavior.STATE_EXPANDED
+                || bottomSheetBehaviour.state == BottomSheetBehavior.STATE_COLLAPSED) {
+            bottomSheetBehaviour.state = BottomSheetBehavior.STATE_HIDDEN
         }
     }
 
@@ -102,9 +105,15 @@ class ComicDetailActivity : AppCompatActivity(), ComicDetailView {
     }
 
     private fun setupImageNavigator() {
+        setupSwiping()
         comic_detail_next_icon.setOnClickListener { _ -> presenter.showNextImage() }
         comic_detail_previous_icon.setOnClickListener { _ -> presenter.showPreviousImage() }
         comic_detail_next_icon.visibility = View.VISIBLE
+    }
+
+    private fun setupSwiping() {
+        val flingDetector = GestureDetector(this, FlingDetector(presenter::showPreviousImage, presenter::showNextImage))
+        comic_detail_parent_layout.setOnTouchListener { _, event -> flingDetector.onTouchEvent(event) }
     }
 
     override fun onStop() {
