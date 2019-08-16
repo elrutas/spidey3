@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="marvel_api_public_key">@string/fake_key</string>
-    <string name="marvel_api_private_key">@string/fake_key</string>
+    <string name="marvel_api_public_key">9c3b8039e31cbb8f762a66c9ffcaf615</string>
+    <string name="marvel_api_private_key">8e0cde86396f6493737e19a61558051b10dc9309</string>
 </resources>

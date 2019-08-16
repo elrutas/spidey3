@@ -1,7 +1,7 @@
 package com.example.lucas.spidey3.helpers
 
 import com.example.lucas.spidey3.di.jUnitDaggerMockRule
-import com.example.lucas.spidey3.domain.usecase.Usecase
+import com.example.lucas.spidey3.features.common.domain.usecase.Usecase
 import io.reactivex.observers.TestObserver
 import io.reactivex.schedulers.TestScheduler
 import org.junit.Before

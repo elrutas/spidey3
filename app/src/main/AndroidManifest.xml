@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name="com.example.lucas.spidey3.ui.features.comiclist.ComicListActivity">
+        <activity android:name="com.example.lucas.spidey3.features.comiclist.ui.ComicListActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -20,7 +20,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="com.example.lucas.spidey3.ui.features.comicdetail.ComicDetailActivity"
+        <activity android:name="com.example.lucas.spidey3.features.comicdetail.ui.ComicDetailActivity"
             android:theme="@style/Theme.Design.NoActionBar"/>
 
     </application>

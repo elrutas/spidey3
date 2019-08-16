@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.features.comiclist.ComicListActivity">
+    tools:context=".features.comiclist.ui.ComicListActivity">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/comic_list_recycler"

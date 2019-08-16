@@ -6,7 +6,7 @@
     android:id="@+id/comic_detail_parent_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.features.comicdetail.ComicDetailActivity">
+    tools:context=".features.comicdetail.ui.ComicDetailActivity">
 
     <ImageView
         android:id="@+id/comic_detail_image"

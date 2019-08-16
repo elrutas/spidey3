@@ -1,8 +1,9 @@
 package com.example.lucas.spidey3.domain.usecase
 
-import com.example.lucas.spidey3.data.repository.ComicRepository
-import com.example.lucas.spidey3.domain.model.Comic
-import com.example.lucas.spidey3.domain.model.SuperHero
+import com.example.lucas.spidey3.features.common.data.repository.ComicRepository
+import com.example.lucas.spidey3.features.comicdetail.domain.model.Comic
+import com.example.lucas.spidey3.features.comicdetail.domain.model.SuperHero
+import com.example.lucas.spidey3.features.common.domain.usecase.GetComicsForSuperHero
 import com.example.lucas.spidey3.helpers.BaseUsecaseTest
 import com.example.lucas.spidey3.internal.utils.testing.ComicMother
 import com.nhaarman.mockito_kotlin.any
@@ -19,7 +20,8 @@ class GetComicsForSuperHeroTest : BaseUsecaseTest<List<Comic>>() {
 
     @Before
     fun setup() {
-        getComicsForSuperHero = GetComicsForSuperHero(comicRepository)
+        getComicsForSuperHero =
+            GetComicsForSuperHero(comicRepository)
     }
 
     @Test (expected = UninitializedPropertyAccessException::class)

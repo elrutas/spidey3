@@ -1,0 +1,22 @@
+package com.example.lucas.spidey3.features.common.data.network.entity
+
+class ComicEntity (
+        var id: Int,
+        var digitalId: String,
+        var title: String,
+        var issueNumber: String,
+        var variantDescription: String,
+        var description: String?,
+        var modified: String,
+        var isbn: String,
+        var upc: String,
+        var diamondCode: String,
+        var ean: String,
+        var issn: String,
+        var format: String,
+        var pageCount: String,
+        var resourceURI: String,
+        var thumbnail: ThumbnailEntity,
+        var images: List<ComicImageEntity>
+)
+

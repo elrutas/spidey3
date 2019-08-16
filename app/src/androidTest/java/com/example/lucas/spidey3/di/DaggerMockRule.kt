@@ -2,7 +2,7 @@ package com.example.lucas.spidey3.di
 
 import android.support.test.InstrumentationRegistry
 import com.example.lucas.spidey3.SpideyApp
-import com.example.lucas.spidey3.data.repository.di.RepositoryModule
+import com.example.lucas.spidey3.features.common.data.repository.di.RepositoryModule
 import com.example.lucas.spidey3.internal.di.AppComponent
 import com.example.lucas.spidey3.internal.di.AppModule
 import com.example.lucas.spidey3.internal.di.Injector
