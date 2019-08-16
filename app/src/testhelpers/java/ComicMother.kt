@@ -1,6 +1,6 @@
-package com.example.lucas.spidey2.internal.utils.testing
+package com.example.lucas.spidey3.internal.utils.testing
 
-import com.example.lucas.spidey2.domain.model.Comic
+import com.example.lucas.spidey3.domain.model.Comic
 
 class ComicMother {
     companion object {
