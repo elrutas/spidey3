@@ -2,7 +2,6 @@ package com.example.lucas.spidey2
 
 import android.content.Intent
 import android.support.test.rule.ActivityTestRule
-import android.support.test.runner.AndroidJUnit4
 import com.example.lucas.spidey2.data.repository.ComicRepository
 import com.example.lucas.spidey2.di.daggerMockRule
 import com.example.lucas.spidey2.helpers.UITestHelpers.Companion.viewWithText
@@ -15,17 +14,15 @@ import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import org.junit.runner.RunWith
 import org.mockito.Mockito.`when`
 
-@RunWith(AndroidJUnit4::class)
 class ComicDetailTest {
 
     @get:Rule val daggerRule = daggerMockRule()
     @get:Rule var activityRule = ActivityTestRule(ComicDetailActivity::class.java, false, false)
 
-    val comicRepository: ComicRepository = mock()
-    val comic = ComicMother.aComic()
+    private val comicRepository: ComicRepository = mock()
+    private val comic = ComicMother.aComic()
 
     @Before
     fun setup() {
@@ -45,6 +42,7 @@ class ComicDetailTest {
         activityRule.launchActivity(getIntentWithExtras(title))
 
         viewWithText(R.id.comic_detail_title, title)
+        viewWithText(R.id.comic_detail_description, comic.description)
     }
 
     @Test
