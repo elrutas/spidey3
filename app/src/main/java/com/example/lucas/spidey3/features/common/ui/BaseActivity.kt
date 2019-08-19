@@ -8,7 +8,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.example.lucas.spidey3.internal.di.Injector
 import javax.inject.Inject
 
-open class BaseActivity : AppCompatActivity() {
+abstract class BaseActivity : AppCompatActivity() {
 
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
 

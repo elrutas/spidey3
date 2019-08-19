@@ -5,7 +5,7 @@ import com.example.lucas.spidey3.internal.utils.GlideApp
 
 fun ImageView.loadUrl(url: String) {
     GlideApp.with(this)
-            .load(url)
+            .load(url.replace("http", "https"))
             .fitCenter()
             .into(this)
 }

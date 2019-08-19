@@ -1,8 +1,6 @@
 package com.example.lucas.spidey3.features.comiclist.ui
 
-import android.content.Intent
 import android.os.Bundle
-import androidx.core.app.ActivityOptionsCompat
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
@@ -18,6 +16,7 @@ import com.example.lucas.spidey3.features.comiclist.ui.adapter.items.ComicListIt
 import com.example.lucas.spidey3.features.comiclist.ui.adapter.items.ComicPM
 import com.example.lucas.spidey3.features.common.ui.BaseActivity
 import kotlinx.android.synthetic.main.activity_comic_list.*
+import kotlin.math.roundToInt
 
 
 class ComicListActivity : BaseActivity() {
@@ -34,8 +33,8 @@ class ComicListActivity : BaseActivity() {
         Injector.getAppComponent().inject(this)
 
         setupComicList()
-        viewModel.liveState().observe(this, Observer { onStateChanged(it) })
 
+        viewModel.liveState().observe(this, Observer { onStateChanged(it) })
         viewModel.loadComics()
     }
 
@@ -70,20 +69,16 @@ class ComicListActivity : BaseActivity() {
         display.getMetrics(outMetrics)
 
         val dpWidth = outMetrics.widthPixels.toFloat()
-        val itemWidth = getResources().getDimension(R.dimen.span_width)
-        return Math.round(dpWidth / itemWidth)
+        val itemWidth = resources.getDimension(R.dimen.span_width)
+        return (dpWidth / itemWidth).roundToInt()
     }
 
     fun showComics(items: List<ComicListItem>) {
         comicListAdapter.update(items)
     }
 
-    fun launchDetailActivity(comicPM: ComicPM, imageViewForAnimation: ImageView) {
-        val intent = Intent(applicationContext, ComicDetailActivity::class.java)
-        intent.putExtra(ComicDetailActivity.COMIC_ID_EXTRA, comicPM.id)
-        intent.putExtra(ComicDetailActivity.COMIC_TITLE_EXTRA, comicPM.title)
-        intent.putExtra(ComicDetailActivity.COMIC_THUMBNAIL, comicPM.thumbnailUrl)
-        val options = ActivityOptionsCompat.makeSceneTransitionAnimation(this, imageViewForAnimation, getString(R.string.comic_thumbnail_transition))
-        startActivity(intent, options.toBundle())
+    private fun launchDetailActivity(comicPM: ComicPM, imageViewForAnimation: ImageView) {
+        ComicDetailActivity.launchDetailActivity(this, comicPM.id, comicPM.title, comicPM.thumbnailUrl,
+            imageViewForAnimation)
     }
 }

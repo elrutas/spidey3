@@ -1,6 +1,8 @@
 package com.example.lucas.spidey3.features.comicdetail.ui
 
 import android.animation.ObjectAnimator
+import android.app.Activity
+import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -8,7 +10,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.view.GestureDetector
 import android.view.View
 import android.view.animation.AccelerateDecelerateInterpolator
+import android.widget.ImageView
 import android.widget.LinearLayout
+import androidx.core.app.ActivityOptionsCompat
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
@@ -25,16 +29,10 @@ import kotlin.properties.Delegates
 
 class ComicDetailActivity : AppCompatActivity(), ComicDetailView {
 
-    companion object {
-        const val COMIC_ID_EXTRA = "comicId"
-        const val COMIC_TITLE_EXTRA = "comicTitle"
-        const val COMIC_THUMBNAIL = "comicThumbnailUrl"
-    }
-
     @Inject lateinit var viewModel: ComicDetailViewModel
 
-    var translationAmount: Float by Delegates.notNull()
-    lateinit var bottomSheetBehaviour: BottomSheetBehavior<LinearLayout>
+    private var translationAmount: Float by Delegates.notNull()
+    private lateinit var bottomSheetBehaviour: BottomSheetBehavior<LinearLayout>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -154,5 +152,21 @@ class ComicDetailActivity : AppCompatActivity(), ComicDetailView {
             )
         )
         comic_detail_parent_layout.setOnTouchListener { _, event -> flingDetector.onTouchEvent(event) }
+    }
+
+    companion object {
+        private const val COMIC_ID_EXTRA = "comicId"
+        private const val COMIC_TITLE_EXTRA = "comicTitle"
+        private const val COMIC_THUMBNAIL = "comicThumbnailUrl"
+
+        fun launchDetailActivity(from: Activity, comicId: Int, comicTitle: String, comicThumbnailUrl: String,
+                                 imageViewForAnimation: ImageView) {
+            val intent = Intent(from, ComicDetailActivity::class.java)
+            intent.putExtra(COMIC_ID_EXTRA, comicId)
+            intent.putExtra(COMIC_TITLE_EXTRA, comicTitle)
+            intent.putExtra(COMIC_THUMBNAIL, comicThumbnailUrl)
+            val options = ActivityOptionsCompat.makeSceneTransitionAnimation(from, imageViewForAnimation, from.getString(R.string.comic_thumbnail_transition))
+            from.startActivity(intent, options.toBundle())
+        }
     }
 }
