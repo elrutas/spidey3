@@ -10,7 +10,7 @@ class ComicMapper {
         val comicEntityList = comicDataWrapperEntity.data.results
 
         if (comicEntityList.isEmpty()) {
-            return listOf<Comic>()
+            return listOf()
         }
 
         return comicEntityList.map { comicEntity ->
@@ -34,6 +34,6 @@ class ComicMapper {
     }
 
     private fun buildImageUrl(path: String, extension: String): String {
-        return "$path.$extension"
+        return "$path.$extension".replace("http", "https")
     }
 }

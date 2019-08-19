@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.error_list_item.*
 
 class ComicListAdapter(private val comicClick: (ComicPM, ImageView) -> Unit,
                        private val retryClick: () -> Unit
-) : androidx.recyclerview.widget.RecyclerView.Adapter<androidx.recyclerview.widget.RecyclerView.ViewHolder>() {
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     val items: MutableList<ComicListItem> = mutableListOf()
 
@@ -36,7 +36,7 @@ class ComicListAdapter(private val comicClick: (ComicPM, ImageView) -> Unit,
         return items[position].type.value
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): androidx.recyclerview.widget.RecyclerView.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when(viewType) {
             ComicListItem.Type.COMIC.value -> createComicViewHolder(parent)
             ComicListItem.Type.LOADING_ITEM.value -> createLoadingItemViewHolder(parent)
@@ -60,7 +60,7 @@ class ComicListAdapter(private val comicClick: (ComicPM, ImageView) -> Unit,
         return ErrorItemViewHolder(itemView, retryClick)
     }
 
-    override fun onBindViewHolder(holder: androidx.recyclerview.widget.RecyclerView.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val listItem = items.get(holder.adapterPosition)
         when(holder) {
             is ComicItemViewHolder -> holder.bind(listItem as ComicPM)
@@ -69,7 +69,7 @@ class ComicListAdapter(private val comicClick: (ComicPM, ImageView) -> Unit,
     }
 
     inner class ComicItemViewHolder(override val containerView: View, private val itemClick: (ComicPM, ImageView) -> Unit)
-        : androidx.recyclerview.widget.RecyclerView.ViewHolder(containerView), LayoutContainer {
+        : RecyclerView.ViewHolder(containerView), LayoutContainer {
 
         fun bind(comic: ComicPM) {
             with(comic) {
@@ -80,10 +80,10 @@ class ComicListAdapter(private val comicClick: (ComicPM, ImageView) -> Unit,
         }
     }
 
-    inner class LoadingItemViewHolder(containerView: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(containerView)
+    inner class LoadingItemViewHolder(containerView: View) : RecyclerView.ViewHolder(containerView)
 
     inner class ErrorItemViewHolder(override val containerView: View, private val retryClick: () -> Unit)
-        : androidx.recyclerview.widget.RecyclerView.ViewHolder(containerView), LayoutContainer {
+        : RecyclerView.ViewHolder(containerView), LayoutContainer {
 
         fun bind() {
             comic_list_error_item_card_view.setOnClickListener{ retryClick.invoke() }

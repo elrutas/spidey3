@@ -14,35 +14,24 @@ class ComicListViewModel @Inject constructor(
 
     private val liveData: MutableLiveData<ComicListState> = MutableLiveData()
 
-    var state = ComicListState()
-
     fun loadComics() {
-        if (state.status == ComicListState.Status.LOADING) {
+        if (liveData.value?.loading == true) {
             return
         }
 
-        state.status = ComicListState.Status.LOADING
-        updateState()
+        val state = liveData.value?.let { ComicListState.Loading(it) } ?: ComicListState.Init()
+        liveData.value = state
 
         execute(getComicsForSuperHero.withParams(SuperHero.SPIDEY, 20, state.comics.size),
-                { comics ->
-                    state.status = ComicListState.Status.IDLE
-                    state.comics.addAll(comics)
-                    updateState()
-                },
+                { loadedComics -> liveData.value = ComicListState.Success(state, loadedComics) },
                 { throwable ->
-                    state.status = ComicListState.Status.ERROR
                     Timber.e(throwable)
-                    updateState()
+                    liveData.value = ComicListState.Error(state)
                 }
         )
     }
 
     fun liveState() : LiveData<ComicListState> {
         return liveData
-    }
-
-    private fun updateState() {
-        liveData.value = state
     }
 }

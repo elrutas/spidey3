@@ -22,7 +22,7 @@ import kotlin.math.roundToInt
 class ComicListActivity : BaseActivity() {
     private val viewModel: ComicListViewModel by lazy { viewModel(ComicListViewModel::class.java) }
 
-    val presentationMapper = ComicListPresentationMapper()
+    private val presentationMapper = ComicListPresentationMapper()
 
     lateinit var comicListAdapter: ComicListAdapter
 

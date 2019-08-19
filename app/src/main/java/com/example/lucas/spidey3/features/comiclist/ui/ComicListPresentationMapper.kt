@@ -11,21 +11,20 @@ class ComicListPresentationMapper {
     fun map(state: ComicListState): List<ComicListItem> {
         val items = mutableListOf<ComicListItem>()
 
-        mapComics(items, state.comics)
-        mapStatus(items, state.status)
+        mapComics(state.comics, items)
+
+        if (state.loading) {
+            items.add(LoadingItemPM())
+        }
+
+        if (state.error) {
+            items.add(ErrorItemPM())
+        }
 
         return items
     }
 
-    private fun mapStatus(items: MutableList<ComicListItem>, status: ComicListState.Status) {
-        if (status == ComicListState.Status.LOADING) {
-            items.add(LoadingItemPM())
-        } else if (status == ComicListState.Status.ERROR) {
-            items.add((ErrorItemPM()))
-        }
-    }
-
-    private fun mapComics(items: MutableList<ComicListItem>, comics: MutableList<Comic>) {
+    private fun mapComics(comics: List<Comic>, items: MutableList<ComicListItem>) {
         items.addAll(comics.map {
             ComicPM(it.id, it.title, it.thumbnailUrl)
         })
