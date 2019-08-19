@@ -1,5 +1,6 @@
 package com.example.lucas.spidey3.internal.di
 
+import androidx.lifecycle.ViewModelProvider
 import com.example.lucas.spidey3.R
 import com.example.lucas.spidey3.SpideyApp
 import com.example.lucas.spidey3.features.common.data.network.di.MarvelApiModule
@@ -24,5 +25,11 @@ class AppModule(val spideyApp: SpideyApp) {
     @Named("ApiPublicKey")
     fun provideApiPublicKey(): String {
         return spideyApp.getString(R.string.marvel_api_public_key)
+    }
+
+    @Provides
+    @Singleton
+    fun provideViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory {
+        return factory
     }
 }

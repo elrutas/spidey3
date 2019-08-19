@@ -3,12 +3,12 @@ package com.example.lucas.spidey3.features.comiclist.ui
 import android.content.Intent
 import android.os.Bundle
 import androidx.core.app.ActivityOptionsCompat
-import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import android.util.DisplayMetrics
 import android.widget.ImageView
+import androidx.lifecycle.Observer
 import com.example.lucas.spidey3.R
 import com.example.lucas.spidey3.internal.di.Injector
 import com.example.lucas.spidey3.features.comicdetail.ui.ComicDetailActivity
@@ -16,13 +16,14 @@ import com.example.lucas.spidey3.features.comiclist.ui.adapter.ComicListAdapter
 import com.example.lucas.spidey3.features.comiclist.ui.adapter.EndlessRecyclerViewScrollListener
 import com.example.lucas.spidey3.features.comiclist.ui.adapter.items.ComicListItem
 import com.example.lucas.spidey3.features.comiclist.ui.adapter.items.ComicPM
-import com.example.lucas.spidey3.features.comiclist.di.ComicListModule
+import com.example.lucas.spidey3.features.common.ui.BaseActivity
 import kotlinx.android.synthetic.main.activity_comic_list.*
-import javax.inject.Inject
 
 
-class ComicListActivity : AppCompatActivity(), ComicListView {
-    @Inject lateinit var viewModel: ComicListViewModel
+class ComicListActivity : BaseActivity() {
+    private val viewModel: ComicListViewModel by lazy { viewModel(ComicListViewModel::class.java) }
+
+    val presentationMapper = ComicListPresentationMapper()
 
     lateinit var comicListAdapter: ComicListAdapter
 
@@ -30,16 +31,20 @@ class ComicListActivity : AppCompatActivity(), ComicListView {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_comic_list)
 
-        Injector.getAppComponent()
-                .getComicListComponent(ComicListModule(this))
-                .inject(this)
+        Injector.getAppComponent().inject(this)
 
         setupComicList()
+        viewModel.liveState().observe(this, Observer { onStateChanged(it) })
+
         viewModel.loadComics()
     }
 
+    private fun onStateChanged(state: ComicListState) {
+        showComics(presentationMapper.map(state))
+    }
+
     private fun setupComicList() {
-        comicListAdapter = ComicListAdapter(viewModel::comicClicked, viewModel::loadComics)
+        comicListAdapter = ComicListAdapter(::onComicClicked, viewModel::loadComics)
 
         comic_list_recycler.setHasFixedSize(false)
         comic_list_recycler.layoutManager = StaggeredGridLayoutManager(
@@ -55,6 +60,10 @@ class ComicListActivity : AppCompatActivity(), ComicListView {
         })
     }
 
+    private fun onComicClicked(comic: ComicPM, comicThumbnail: ImageView) {
+        launchDetailActivity(comic, comicThumbnail)
+    }
+
     private fun calculateSpanCount(): Int {
         val display = windowManager.defaultDisplay
         val outMetrics = DisplayMetrics()
@@ -65,11 +74,11 @@ class ComicListActivity : AppCompatActivity(), ComicListView {
         return Math.round(dpWidth / itemWidth)
     }
 
-    override fun showComics(items: List<ComicListItem>) {
+    fun showComics(items: List<ComicListItem>) {
         comicListAdapter.update(items)
     }
 
-    override fun launchDetailActivity(comicPM: ComicPM, imageViewForAnimation: ImageView) {
+    fun launchDetailActivity(comicPM: ComicPM, imageViewForAnimation: ImageView) {
         val intent = Intent(applicationContext, ComicDetailActivity::class.java)
         intent.putExtra(ComicDetailActivity.COMIC_ID_EXTRA, comicPM.id)
         intent.putExtra(ComicDetailActivity.COMIC_TITLE_EXTRA, comicPM.title)

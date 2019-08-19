@@ -2,27 +2,26 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.lucas.spidey3">
 
-    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
-        android:name="com.example.lucas.spidey3.SpideyApp"
+        android:name=".SpideyApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name="com.example.lucas.spidey3.features.comiclist.ui.ComicListActivity">
+        <activity android:name=".features.comiclist.ui.ComicListActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-
-        <activity android:name="com.example.lucas.spidey3.features.comicdetail.ui.ComicDetailActivity"
+        <activity
+            android:name=".features.comicdetail.ui.ComicDetailActivity"
             android:theme="@style/Theme.Design.NoActionBar"/>
-
     </application>
 
 </manifest>
