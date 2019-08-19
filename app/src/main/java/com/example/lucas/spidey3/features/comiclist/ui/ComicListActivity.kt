@@ -22,7 +22,7 @@ import javax.inject.Inject
 
 
 class ComicListActivity : AppCompatActivity(), ComicListView {
-    @Inject lateinit var presenter: ComicListPresenter
+    @Inject lateinit var viewModel: ComicListViewModel
 
     lateinit var comicListAdapter: ComicListAdapter
 
@@ -35,17 +35,11 @@ class ComicListActivity : AppCompatActivity(), ComicListView {
                 .inject(this)
 
         setupComicList()
-        presenter.loadComics()
-    }
-
-    override fun onResume() {
-        super.onResume()
-
-        presenter.checkStatusAndLoadIfNeeded()
+        viewModel.loadComics()
     }
 
     private fun setupComicList() {
-        comicListAdapter = ComicListAdapter(presenter::comicClicked, presenter::loadComics)
+        comicListAdapter = ComicListAdapter(viewModel::comicClicked, viewModel::loadComics)
 
         comic_list_recycler.setHasFixedSize(false)
         comic_list_recycler.layoutManager = StaggeredGridLayoutManager(calculateSpanCount(), RecyclerView.VERTICAL)
@@ -53,7 +47,7 @@ class ComicListActivity : AppCompatActivity(), ComicListView {
         (comic_list_recycler.itemAnimator as DefaultItemAnimator).supportsChangeAnimations = false
         comic_list_recycler.addOnScrollListener(object : EndlessRecyclerViewScrollListener(comic_list_recycler.layoutManager as StaggeredGridLayoutManager) {
             override fun onLoadMore(page: Int, totalItemsCount: Int) {
-                presenter.loadComics()
+                viewModel.loadComics()
             }
         })
     }
@@ -79,10 +73,5 @@ class ComicListActivity : AppCompatActivity(), ComicListView {
         intent.putExtra(ComicDetailActivity.COMIC_THUMBNAIL, comicPM.thumbnailUrl)
         val options = ActivityOptionsCompat.makeSceneTransitionAnimation(this, imageViewForAnimation, getString(R.string.comic_thumbnail_transition))
         startActivity(intent, options.toBundle())
-    }
-
-    override fun onStop() {
-        super.onStop()
-        presenter.stop()
     }
 }

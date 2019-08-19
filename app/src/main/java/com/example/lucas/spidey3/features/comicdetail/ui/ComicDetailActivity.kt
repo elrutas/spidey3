@@ -31,7 +31,7 @@ class ComicDetailActivity : AppCompatActivity(), ComicDetailView {
         const val COMIC_THUMBNAIL = "comicThumbnailUrl"
     }
 
-    @Inject lateinit var presenter: ComicDetailPresenter
+    @Inject lateinit var viewModel: ComicDetailViewModel
 
     var translationAmount: Float by Delegates.notNull()
     lateinit var bottomSheetBehaviour: BottomSheetBehavior<LinearLayout>
@@ -70,7 +70,7 @@ class ComicDetailActivity : AppCompatActivity(), ComicDetailView {
 
         comic_detail_title.text = comicTitle
         loadThumbnail(comicThumbnailUrl)
-        presenter.getComic(comicId)
+        viewModel.getComic(comicId)
     }
 
     private fun loadThumbnail(thumbnailUrl: String) {
@@ -141,23 +141,18 @@ class ComicDetailActivity : AppCompatActivity(), ComicDetailView {
 
     private fun setupImageNavigator() {
         setupSwiping()
-        comic_detail_next_icon.setOnClickListener { _ -> presenter.showNextImage() }
-        comic_detail_previous_icon.setOnClickListener { _ -> presenter.showPreviousImage() }
+        comic_detail_next_icon.setOnClickListener { _ -> viewModel.showNextImage() }
+        comic_detail_previous_icon.setOnClickListener { _ -> viewModel.showPreviousImage() }
         comic_detail_next_icon.visibility = View.VISIBLE
     }
 
     private fun setupSwiping() {
         val flingDetector = GestureDetector(this,
             FlingDetector(
-                presenter::showPreviousImage,
-                presenter::showNextImage
+                viewModel::showPreviousImage,
+                viewModel::showNextImage
             )
         )
         comic_detail_parent_layout.setOnTouchListener { _, event -> flingDetector.onTouchEvent(event) }
-    }
-
-    override fun onStop() {
-        super.onStop()
-        presenter.stop()
     }
 }

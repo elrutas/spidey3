@@ -1,11 +1,12 @@
 package com.example.lucas.spidey3.features.common.ui
 
+import android.arch.lifecycle.ViewModel
 import com.example.lucas.spidey3.features.common.domain.usecase.Usecase
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
-abstract class BasePresenter() {
+abstract class BaseViewModel : ViewModel() {
 
     var disposables: CompositeDisposable = CompositeDisposable()
 
@@ -20,8 +21,8 @@ abstract class BasePresenter() {
         )
     }
 
-    open fun stop() {
+    override fun onCleared() {
+        super.onCleared()
         disposables.dispose()
-        disposables = CompositeDisposable()
     }
 }

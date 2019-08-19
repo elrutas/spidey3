@@ -1,17 +1,16 @@
 package com.example.lucas.spidey3.features.comicdetail.ui
 
 import com.example.lucas.spidey3.features.comicdetail.domain.usecase.GetComic
-import com.example.lucas.spidey3.features.common.ui.BasePresenter
+import com.example.lucas.spidey3.features.common.ui.BaseViewModel
 import timber.log.Timber
 import javax.inject.Inject
 
-class ComicDetailPresenter @Inject constructor(val view: ComicDetailView,
-                                               val getComic: GetComic
-)
-    : BasePresenter() {
+class ComicDetailViewModel @Inject constructor(
+    val view: ComicDetailView,
+    val getComic: GetComic
+) : BaseViewModel() {
 
-    var state: ComicDetailState =
-        ComicDetailState()
+    var state: ComicDetailState = ComicDetailState()
 
     fun getComic(comicId: Int) {
         execute(getComic.withParams(comicId),

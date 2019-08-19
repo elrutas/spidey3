@@ -7,9 +7,7 @@ import io.reactivex.Single
 import javax.inject.Inject
 import kotlin.properties.Delegates
 
-
-class GetComic @Inject constructor(private val comicRepository: ComicRepository) :
-    Usecase<Comic> {
+class GetComic @Inject constructor(private val comicRepository: ComicRepository) : Usecase<Comic> {
 
     var comicId :Int by Delegates.notNull()
 
