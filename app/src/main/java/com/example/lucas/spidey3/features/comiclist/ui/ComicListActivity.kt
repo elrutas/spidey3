@@ -42,13 +42,13 @@ class ComicListActivity : AppCompatActivity(), ComicListView {
         comicListAdapter = ComicListAdapter(viewModel::comicClicked, viewModel::loadComics)
 
         comic_list_recycler.setHasFixedSize(false)
-        comic_list_recycler.layoutManager = androidx.recyclerview.widget.StaggeredGridLayoutManager(
+        comic_list_recycler.layoutManager = StaggeredGridLayoutManager(
             calculateSpanCount(),
-            androidx.recyclerview.widget.RecyclerView.VERTICAL
+            RecyclerView.VERTICAL
         )
         comic_list_recycler.adapter = comicListAdapter
-        (comic_list_recycler.itemAnimator as androidx.recyclerview.widget.DefaultItemAnimator).supportsChangeAnimations = false
-        comic_list_recycler.addOnScrollListener(object : EndlessRecyclerViewScrollListener(comic_list_recycler.layoutManager as androidx.recyclerview.widget.StaggeredGridLayoutManager) {
+        (comic_list_recycler.itemAnimator as DefaultItemAnimator).supportsChangeAnimations = false
+        comic_list_recycler.addOnScrollListener(object : EndlessRecyclerViewScrollListener(comic_list_recycler.layoutManager as StaggeredGridLayoutManager) {
             override fun onLoadMore(page: Int, totalItemsCount: Int) {
                 viewModel.loadComics()
             }
