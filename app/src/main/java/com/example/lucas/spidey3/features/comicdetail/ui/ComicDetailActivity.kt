@@ -3,8 +3,8 @@ package com.example.lucas.spidey3.features.comicdetail.ui
 import android.animation.ObjectAnimator
 import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.support.design.widget.BottomSheetBehavior
-import android.support.v7.app.AppCompatActivity
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import androidx.appcompat.app.AppCompatActivity
 import android.view.GestureDetector
 import android.view.View
 import android.view.animation.AccelerateDecelerateInterpolator

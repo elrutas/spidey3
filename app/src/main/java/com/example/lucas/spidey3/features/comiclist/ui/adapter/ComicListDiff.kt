@@ -1,6 +1,6 @@
 package com.example.lucas.spidey3.features.comiclist.ui.adapter
 
-import android.support.v7.util.DiffUtil
+import androidx.recyclerview.widget.DiffUtil
 import com.example.lucas.spidey3.features.comiclist.ui.adapter.items.ComicListItem
 import com.example.lucas.spidey3.features.comiclist.ui.adapter.items.ComicPM
 import com.example.lucas.spidey3.features.comiclist.ui.adapter.items.ErrorItemPM

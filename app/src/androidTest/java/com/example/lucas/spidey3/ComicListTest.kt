@@ -1,8 +1,8 @@
 package com.example.lucas.spidey3
 
 import android.content.Intent
-import android.support.test.rule.ActivityTestRule
-import android.support.test.runner.AndroidJUnit4
+import androidx.test.rule.ActivityTestRule
+import androidx.test.runner.AndroidJUnit4
 import com.example.lucas.spidey3.features.common.data.repository.ComicRepository
 import com.example.lucas.spidey3.di.daggerMockRule
 import com.example.lucas.spidey3.features.comicdetail.domain.model.Comic

@@ -1,7 +1,7 @@
 package com.example.lucas.spidey3
 
 import android.content.Intent
-import android.support.test.rule.ActivityTestRule
+import androidx.test.rule.ActivityTestRule
 import com.example.lucas.spidey3.features.common.data.repository.ComicRepository
 import com.example.lucas.spidey3.di.daggerMockRule
 import com.example.lucas.spidey3.helpers.UITestHelpers.Companion.viewWithText

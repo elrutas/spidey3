@@ -1,16 +1,16 @@
 package com.example.lucas.spidey3.helpers
 
-import android.support.test.InstrumentationRegistry
-import android.support.test.espresso.Espresso
-import android.support.test.espresso.Espresso.onView
-import android.support.test.espresso.action.ViewActions.click
-import android.support.test.espresso.assertion.ViewAssertions
-import android.support.test.espresso.assertion.ViewAssertions.matches
-import android.support.test.espresso.contrib.RecyclerViewActions
-import android.support.test.espresso.matcher.ViewMatchers
-import android.support.test.espresso.matcher.ViewMatchers.*
-import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.Toolbar
+import androidx.test.InstrumentationRegistry
+import androidx.test.espresso.Espresso
+import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.action.ViewActions.click
+import androidx.test.espresso.assertion.ViewAssertions
+import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.contrib.RecyclerViewActions
+import androidx.test.espresso.matcher.ViewMatchers
+import androidx.test.espresso.matcher.ViewMatchers.*
+import androidx.recyclerview.widget.RecyclerView
+import androidx.appcompat.widget.Toolbar
 import android.view.View
 import android.widget.TextView
 import com.example.lucas.spidey3.R
@@ -75,12 +75,12 @@ class UITestHelpers { companion object {
 
     fun scrollToComicListPosition(position: Int) {
         onView(allOf(withId(R.id.comic_list_recycler), isDisplayed()))
-                .perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(position))
+                .perform(RecyclerViewActions.scrollToPosition<androidx.recyclerview.widget.RecyclerView.ViewHolder>(position))
     }
 
     fun clickOnComicListPosition(position: Int) {
         scrollToComicListPosition(position)
         onView(withId(R.id.comic_list_recycler))
-                .perform(RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(position, click()))
+                .perform(RecyclerViewActions.actionOnItemAtPosition<androidx.recyclerview.widget.RecyclerView.ViewHolder>(position, click()))
     }
 } }

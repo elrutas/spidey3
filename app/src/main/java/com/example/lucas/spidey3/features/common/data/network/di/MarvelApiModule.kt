@@ -18,14 +18,14 @@ class MarvelApiModule {
     @Provides
     @Singleton
     internal fun provideMarvelApiClient(): Retrofit {
-        val baseUrl = "http://gateway.marvel.com"
+        val baseUrl = "https://gateway.marvel.com"
 
         val loggingInterceptor = HttpLoggingInterceptor()
 
         if (BuildConfig.DEBUG) {
-            loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+            loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
         } else {
-            loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BASIC);
+            loggingInterceptor.level = HttpLoggingInterceptor.Level.BASIC
         }
 
         val okHttpClient = OkHttpClient().newBuilder()

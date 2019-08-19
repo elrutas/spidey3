@@ -2,11 +2,11 @@ package com.example.lucas.spidey3.features.comiclist.ui
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v4.app.ActivityOptionsCompat
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.DefaultItemAnimator
-import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.StaggeredGridLayoutManager
+import androidx.core.app.ActivityOptionsCompat
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.DefaultItemAnimator
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import android.util.DisplayMetrics
 import android.widget.ImageView
 import com.example.lucas.spidey3.R
@@ -42,10 +42,13 @@ class ComicListActivity : AppCompatActivity(), ComicListView {
         comicListAdapter = ComicListAdapter(viewModel::comicClicked, viewModel::loadComics)
 
         comic_list_recycler.setHasFixedSize(false)
-        comic_list_recycler.layoutManager = StaggeredGridLayoutManager(calculateSpanCount(), RecyclerView.VERTICAL)
+        comic_list_recycler.layoutManager = androidx.recyclerview.widget.StaggeredGridLayoutManager(
+            calculateSpanCount(),
+            androidx.recyclerview.widget.RecyclerView.VERTICAL
+        )
         comic_list_recycler.adapter = comicListAdapter
-        (comic_list_recycler.itemAnimator as DefaultItemAnimator).supportsChangeAnimations = false
-        comic_list_recycler.addOnScrollListener(object : EndlessRecyclerViewScrollListener(comic_list_recycler.layoutManager as StaggeredGridLayoutManager) {
+        (comic_list_recycler.itemAnimator as androidx.recyclerview.widget.DefaultItemAnimator).supportsChangeAnimations = false
+        comic_list_recycler.addOnScrollListener(object : EndlessRecyclerViewScrollListener(comic_list_recycler.layoutManager as androidx.recyclerview.widget.StaggeredGridLayoutManager) {
             override fun onLoadMore(page: Int, totalItemsCount: Int) {
                 viewModel.loadComics()
             }

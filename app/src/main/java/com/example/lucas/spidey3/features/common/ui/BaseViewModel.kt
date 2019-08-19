@@ -1,6 +1,6 @@
 package com.example.lucas.spidey3.features.common.ui
 
-import android.arch.lifecycle.ViewModel
+import androidx.lifecycle.ViewModel
 import com.example.lucas.spidey3.features.common.domain.usecase.Usecase
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable

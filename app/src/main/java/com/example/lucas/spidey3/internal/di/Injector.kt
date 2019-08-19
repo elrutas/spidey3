@@ -1,6 +1,6 @@
 package com.example.lucas.spidey3.internal.di
 
-import android.support.annotation.VisibleForTesting
+import androidx.annotation.VisibleForTesting
 
 import com.example.lucas.spidey3.SpideyApp
 
