@@ -1,7 +1,7 @@
 package com.example.lucas.spidey3.domain.usecase
 
 import com.example.lucas.spidey3.features.common.data.repository.ComicRepository
-import com.example.lucas.spidey3.features.comicdetail.domain.model.Comic
+import com.example.lucas.spidey3.features.common.domain.model.Comic
 import com.example.lucas.spidey3.features.comicdetail.domain.usecase.GetComic
 import com.example.lucas.spidey3.helpers.BaseUsecaseTest
 import com.example.lucas.spidey3.internal.utils.testing.ComicMother

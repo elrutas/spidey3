@@ -5,7 +5,7 @@ import androidx.test.rule.ActivityTestRule
 import androidx.test.runner.AndroidJUnit4
 import com.example.lucas.spidey3.features.common.data.repository.ComicRepository
 import com.example.lucas.spidey3.di.daggerMockRule
-import com.example.lucas.spidey3.features.comicdetail.domain.model.Comic
+import com.example.lucas.spidey3.features.common.domain.model.Comic
 import com.example.lucas.spidey3.helpers.UITestHelpers.Companion.clickOnComicListPosition
 import com.example.lucas.spidey3.helpers.UITestHelpers.Companion.textInViewInComicListPosition
 import com.example.lucas.spidey3.helpers.UITestHelpers.Companion.viewWithText

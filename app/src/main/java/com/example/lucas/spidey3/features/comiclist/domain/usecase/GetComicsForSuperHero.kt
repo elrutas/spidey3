@@ -1,7 +1,7 @@
 package com.example.lucas.spidey3.features.comiclist.domain.usecase
 
 import com.example.lucas.spidey3.features.common.data.repository.ComicRepository
-import com.example.lucas.spidey3.features.comicdetail.domain.model.Comic
+import com.example.lucas.spidey3.features.common.domain.model.Comic
 import com.example.lucas.spidey3.features.comiclist.domain.model.SuperHero
 import com.example.lucas.spidey3.features.common.domain.usecase.Usecase
 import io.reactivex.Single

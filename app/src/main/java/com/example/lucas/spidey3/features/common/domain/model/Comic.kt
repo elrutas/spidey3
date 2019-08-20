@@ -1,4 +1,4 @@
-package com.example.lucas.spidey3.features.comicdetail.domain.model
+package com.example.lucas.spidey3.features.common.domain.model
 
 data class Comic(val id: Int,
                  val title: String,

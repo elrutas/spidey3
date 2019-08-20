@@ -1,13 +1,13 @@
-package com.example.lucas.spidey3.features.common.data.network.mapper
+package com.example.lucas.spidey3.features.common.data.network.converter
 
-import com.example.lucas.spidey3.features.common.data.network.entity.ComicDataWrapperEntity
-import com.example.lucas.spidey3.features.common.data.network.entity.ComicImageEntity
-import com.example.lucas.spidey3.features.comicdetail.domain.model.Comic
+import com.example.lucas.spidey3.features.common.data.network.dto.ComicDataWrapperDto
+import com.example.lucas.spidey3.features.common.data.network.dto.ComicImageDto
+import com.example.lucas.spidey3.features.common.domain.model.Comic
 
-class ComicMapper {
+class ComicConverter {
 
-    fun map(comicDataWrapperEntity: ComicDataWrapperEntity): List<Comic> {
-        val comicEntityList = comicDataWrapperEntity.data.results
+    fun map(comicDataWrapperDto: ComicDataWrapperDto): List<Comic> {
+        val comicEntityList = comicDataWrapperDto.data.results
 
         if (comicEntityList.isEmpty()) {
             return listOf()
@@ -27,8 +27,8 @@ class ComicMapper {
         }
     }
 
-    private fun mapImageEntities(imageEntities: List<ComicImageEntity>, thumbnailUrl: String): List<String> {
-        return imageEntities
+    private fun mapImageEntities(imageDtos: List<ComicImageDto>, thumbnailUrl: String): List<String> {
+        return imageDtos
                 .map { buildImageUrl(it.path,  it.extension) }
                 .sortedWith(compareBy { if (it == thumbnailUrl) -1 else 1 })
     }

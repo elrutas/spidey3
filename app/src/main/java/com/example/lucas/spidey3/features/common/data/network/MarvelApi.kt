@@ -1,6 +1,6 @@
 package com.example.lucas.spidey3.features.common.data.network
 
-import com.example.lucas.spidey3.features.common.data.network.entity.ComicDataWrapperEntity
+import com.example.lucas.spidey3.features.common.data.network.dto.ComicDataWrapperDto
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -15,12 +15,12 @@ interface MarvelApi {
             @Query("apikey") api_key: String,
             @Query("hash") md5Hash: String,
             @Query("limit") limit: Int,
-            @Query("offset") offset: Int): Single<ComicDataWrapperEntity>
+            @Query("offset") offset: Int): Single<ComicDataWrapperDto>
 
     @GET("/v1/public/comics/{comicId}")
     fun getComic(
             @Path("comicId") comicId: Int,
             @Query("ts") timestamp: String,
             @Query("apikey") api_key: String,
-            @Query("hash") md5Hash: String): Single<ComicDataWrapperEntity>
+            @Query("hash") md5Hash: String): Single<ComicDataWrapperDto>
 }
