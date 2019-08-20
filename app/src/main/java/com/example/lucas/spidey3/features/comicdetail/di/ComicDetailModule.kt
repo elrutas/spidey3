@@ -1,15 +1,19 @@
 package com.example.lucas.spidey3.features.comicdetail.di
 
-import com.example.lucas.spidey3.features.comicdetail.ui.ComicDetailView
+import androidx.lifecycle.ViewModel
+import com.example.lucas.spidey3.features.comicdetail.ui.ComicDetailViewModel
 import dagger.Module
 import dagger.Provides
+import dagger.multibindings.ClassKey
+import dagger.multibindings.IntoMap
 
 @Module
-class ComicDetailModule(val view : ComicDetailView) {
+class ComicDetailModule {
 
     @Provides
-    @ComicDetailScope
-    fun provideComicDetailView(): ComicDetailView {
-        return view
+    @IntoMap
+    @ClassKey(ComicDetailViewModel::class)
+    fun provideComicDetailViewModel(viewModel: ComicDetailViewModel): ViewModel {
+        return viewModel
     }
 }

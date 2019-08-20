@@ -2,8 +2,8 @@ package com.example.lucas.spidey3.features.comiclist.ui
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.lucas.spidey3.features.comicdetail.domain.model.SuperHero
-import com.example.lucas.spidey3.features.common.domain.usecase.GetComicsForSuperHero
+import com.example.lucas.spidey3.features.comiclist.domain.model.SuperHero
+import com.example.lucas.spidey3.features.comiclist.domain.usecase.GetComicsForSuperHero
 import com.example.lucas.spidey3.features.common.ui.BaseViewModel
 import timber.log.Timber
 import javax.inject.Inject

@@ -6,30 +6,27 @@ import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import com.google.android.material.bottomsheet.BottomSheetBehavior
-import androidx.appcompat.app.AppCompatActivity
 import android.view.GestureDetector
 import android.view.View
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.core.app.ActivityOptionsCompat
+import androidx.lifecycle.Observer
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.example.lucas.spidey3.R
-import com.example.lucas.spidey3.features.comicdetail.domain.model.Comic
-import com.example.lucas.spidey3.internal.di.Injector
 import com.example.lucas.spidey3.internal.extensions.loadUrl
 import com.example.lucas.spidey3.internal.utils.GlideApp
-import com.example.lucas.spidey3.features.comicdetail.di.ComicDetailModule
+import com.example.lucas.spidey3.features.common.ui.BaseActivity
 import kotlinx.android.synthetic.main.comic_detail_activity.*
-import javax.inject.Inject
 import kotlin.properties.Delegates
 
-class ComicDetailActivity : AppCompatActivity(), ComicDetailView {
+class ComicDetailActivity : BaseActivity() {
 
-    @Inject lateinit var viewModel: ComicDetailViewModel
+    private val viewModel: ComicDetailViewModel by lazy { viewModel(ComicDetailViewModel::class.java) }
 
     private var translationAmount: Float by Delegates.notNull()
     private lateinit var bottomSheetBehaviour: BottomSheetBehavior<LinearLayout>
@@ -38,12 +35,14 @@ class ComicDetailActivity : AppCompatActivity(), ComicDetailView {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.comic_detail_activity)
 
-        Injector.getAppComponent()
-                .getComicDetailComponent(ComicDetailModule(this))
-                .inject(this)
-
         getIntentExtra()
         setupResourcesForOverlayAnimation()
+
+        viewModel.comicState().observe(this, Observer { onStateChanged(it) })
+    }
+
+    private fun onStateChanged(comicDetailState: ComicDetailState) {
+        showComic(comicDetailState)
     }
 
     private fun setupResourcesForOverlayAnimation() {
@@ -53,7 +52,7 @@ class ComicDetailActivity : AppCompatActivity(), ComicDetailView {
         translationAmount = imageViewWidth + margin
         bottomSheetBehaviour = BottomSheetBehavior.from(comic_detail_bottom_sheet)
 
-        comic_detail_parent_layout.setOnClickListener { _ -> changeOverlayViewsVisibility() }
+        comic_detail_parent_layout.setOnClickListener { changeOverlayViewsVisibility() }
     }
 
     private fun getIntentExtra() {
@@ -61,34 +60,40 @@ class ComicDetailActivity : AppCompatActivity(), ComicDetailView {
         val comicTitle = intent.getStringExtra(COMIC_TITLE_EXTRA)
         val comicThumbnailUrl = intent.getStringExtra(COMIC_THUMBNAIL)
 
-        if (comicId == -1 || comicThumbnailUrl == null || comicTitle == null) {
-            finish()  // TODO: more "gentle" error handling
-            return
-        }
-
         comic_detail_title.text = comicTitle
         loadThumbnail(comicThumbnailUrl)
         viewModel.getComic(comicId)
     }
-
+    
     private fun loadThumbnail(thumbnailUrl: String) {
         GlideApp.with(this)
-                .load(thumbnailUrl)
-                .fitCenter()
-                .dontAnimate()
-                .listener(object : RequestListener<Drawable> {
-                    override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
-                        postponeEnterTransition()
-                        return false;
-                    }
+            .load(thumbnailUrl)
+            .fitCenter()
+            .dontAnimate()
+            .listener(object : RequestListener<Drawable> {
+                override fun onResourceReady(
+                    resource: Drawable?,
+                    model: Any?,
+                    target: Target<Drawable>?,
+                    dataSource: DataSource?,
+                    isFirstResource: Boolean
+                ): Boolean {
+                    postponeEnterTransition()
+                    return false
+                }
 
-                    override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
-                        postponeEnterTransition()
-                        return false;
-                    }
+                override fun onLoadFailed(
+                    e: GlideException?,
+                    model: Any?,
+                    target: Target<Drawable>?,
+                    isFirstResource: Boolean
+                ): Boolean {
+                    postponeEnterTransition()
+                    return false
+                }
 
-                })
-                .into(comic_detail_image)
+            })
+            .into(comic_detail_image)
     }
 
     private fun changeOverlayViewsVisibility() {
@@ -97,7 +102,8 @@ class ComicDetailActivity : AppCompatActivity(), ComicDetailView {
             moveOutToRightAnimation(comic_detail_next_icon).reverse()
             moveOutToLeftAnimation(comic_detail_previous_icon).reverse()
         } else if (bottomSheetBehaviour.state == BottomSheetBehavior.STATE_EXPANDED
-                || bottomSheetBehaviour.state == BottomSheetBehavior.STATE_COLLAPSED) {
+            || bottomSheetBehaviour.state == BottomSheetBehavior.STATE_COLLAPSED
+        ) {
             bottomSheetBehaviour.state = BottomSheetBehavior.STATE_HIDDEN
             moveOutToRightAnimation(comic_detail_next_icon).start()
             moveOutToLeftAnimation(comic_detail_previous_icon).start()
@@ -123,33 +129,29 @@ class ComicDetailActivity : AppCompatActivity(), ComicDetailView {
         return translateRight
     }
 
-    override fun showComic(comic: Comic) {
-        comic_detail_description.text = comic.description
+    private fun showComic(state: ComicDetailState) {
+        comic_detail_description.text = state.comic.description
 
-        if (comic.imageUrls.size > 1) {
+        if (state.moreThanOneImage()) {
             setupImageNavigator()
         }
-    }
 
-    override fun updateImage(imageUrl: String, canShowPrevious: Boolean, canShowNext: Boolean) {
-        comic_detail_image.loadUrl(imageUrl)
-        comic_detail_previous_icon.visibility = if (canShowPrevious) View.VISIBLE else View.INVISIBLE
-        comic_detail_next_icon.visibility = if (canShowNext) View.VISIBLE else View.INVISIBLE
+        loadThumbnail(state.getCurrentImageUrl())
+        comic_detail_previous_icon.visibility = if (state.canShowPrevious()) View.VISIBLE else View.INVISIBLE
+        comic_detail_next_icon.visibility = if (state.canShowNext()) View.VISIBLE else View.INVISIBLE
     }
 
     private fun setupImageNavigator() {
         setupSwiping()
-        comic_detail_next_icon.setOnClickListener { _ -> viewModel.showNextImage() }
-        comic_detail_previous_icon.setOnClickListener { _ -> viewModel.showPreviousImage() }
+        comic_detail_next_icon.setOnClickListener { viewModel.showNextImage() }
+        comic_detail_previous_icon.setOnClickListener { viewModel.showPreviousImage() }
         comic_detail_next_icon.visibility = View.VISIBLE
     }
-
+    
     private fun setupSwiping() {
-        val flingDetector = GestureDetector(this,
-            FlingDetector(
-                viewModel::showPreviousImage,
-                viewModel::showNextImage
-            )
+        val flingDetector = GestureDetector(
+            this,
+            FlingDetector(viewModel::showPreviousImage, viewModel::showNextImage)
         )
         comic_detail_parent_layout.setOnTouchListener { _, event -> flingDetector.onTouchEvent(event) }
     }
@@ -159,13 +161,19 @@ class ComicDetailActivity : AppCompatActivity(), ComicDetailView {
         private const val COMIC_TITLE_EXTRA = "comicTitle"
         private const val COMIC_THUMBNAIL = "comicThumbnailUrl"
 
-        fun launchDetailActivity(from: Activity, comicId: Int, comicTitle: String, comicThumbnailUrl: String,
-                                 imageViewForAnimation: ImageView) {
+        fun launchDetailActivity(
+            from: Activity, comicId: Int, comicTitle: String, comicThumbnailUrl: String,
+            imageViewForAnimation: ImageView
+        ) {
             val intent = Intent(from, ComicDetailActivity::class.java)
             intent.putExtra(COMIC_ID_EXTRA, comicId)
             intent.putExtra(COMIC_TITLE_EXTRA, comicTitle)
             intent.putExtra(COMIC_THUMBNAIL, comicThumbnailUrl)
-            val options = ActivityOptionsCompat.makeSceneTransitionAnimation(from, imageViewForAnimation, from.getString(R.string.comic_thumbnail_transition))
+            val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                from,
+                imageViewForAnimation,
+                from.getString(R.string.comic_thumbnail_transition)
+            )
             from.startActivity(intent, options.toBundle())
         }
     }

@@ -1,47 +1,43 @@
 package com.example.lucas.spidey3.features.comicdetail.ui
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.example.lucas.spidey3.features.comicdetail.domain.usecase.GetComic
 import com.example.lucas.spidey3.features.common.ui.BaseViewModel
 import timber.log.Timber
 import javax.inject.Inject
 
 class ComicDetailViewModel @Inject constructor(
-    val view: ComicDetailView,
     val getComic: GetComic
 ) : BaseViewModel() {
 
-    var state: ComicDetailState = ComicDetailState()
+    private val liveData: MutableLiveData<ComicDetailState> = MutableLiveData()
 
     fun getComic(comicId: Int) {
         execute(getComic.withParams(comicId),
-                { comic ->
-                    state.comic = comic
-                    udpateView()
-                },
+                { comic -> liveData.value = ComicDetailState(comic) },
                 { throwable -> Timber.e(throwable) }
         )
     }
 
-    private fun udpateView() {
-        view.showComic(state.comic)
+    fun comicState() : LiveData<ComicDetailState> {
+        return liveData
     }
 
     fun showNextImage() {
-        if (state.canShowNext()) {
-            state.currentImageIndex++
-            updateDisplayedImage()
-        }
+        val comicDetailState = liveData.value ?: return
+
+        comicDetailState.showNextImage()
+
+        liveData.value = comicDetailState
     }
 
     fun showPreviousImage() {
-        if (state.canShowPrevious()) {
-            state.currentImageIndex--
-            updateDisplayedImage()
-        }
-    }
+        val comicDetailState = liveData.value ?: return
 
-    private fun updateDisplayedImage() {
-        view.updateImage(state.getCurrentImageUrl(), state.canShowPrevious(), state.canShowNext())
+        comicDetailState.showPreviousImage()
+
+        liveData.value = comicDetailState
     }
 }
 

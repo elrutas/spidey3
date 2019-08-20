@@ -1,4 +1,4 @@
-package com.example.lucas.spidey3.features.comicdetail.domain.model
+package com.example.lucas.spidey3.features.comiclist.domain.model
 
 enum class SuperHero(val id: String) {
     SPIDEY("1009610"),

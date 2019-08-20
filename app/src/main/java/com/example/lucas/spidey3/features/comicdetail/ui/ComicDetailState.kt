@@ -2,10 +2,13 @@ package com.example.lucas.spidey3.features.comicdetail.ui
 
 import com.example.lucas.spidey3.features.comicdetail.domain.model.Comic
 
-class ComicDetailState {
+class ComicDetailState(val comic: Comic) {
 
-    lateinit var comic: Comic
     var currentImageIndex = 0
+
+    fun moreThanOneImage(): Boolean {
+        return comic.imageUrls.size > 1
+    }
 
     fun getCurrentImageUrl(): String {
         return comic.imageUrls[currentImageIndex]
@@ -17,5 +20,17 @@ class ComicDetailState {
 
     fun canShowNext(): Boolean {
         return currentImageIndex < comic.imageUrls.size - 1
+    }
+
+    fun showNextImage() {
+        if (canShowNext()) {
+            currentImageIndex++
+        }
+    }
+
+    fun showPreviousImage() {
+        if (canShowPrevious()) {
+            currentImageIndex--
+        }
     }
 }
