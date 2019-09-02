@@ -3,7 +3,7 @@ package com.example.lucas.spidey3.internal.di
 import androidx.lifecycle.ViewModelProvider
 import com.example.lucas.spidey3.R
 import com.example.lucas.spidey3.SpideyApp
-import com.example.lucas.spidey3.features.comiclist.data.network.di.MarvelApiModule
+import com.example.lucas.spidey3.features.comiclist.data.datasource.network.di.MarvelApiModule
 import com.example.lucas.spidey3.features.comiclist.data.repository.di.RepositoryModule
 import dagger.Module
 import dagger.Provides

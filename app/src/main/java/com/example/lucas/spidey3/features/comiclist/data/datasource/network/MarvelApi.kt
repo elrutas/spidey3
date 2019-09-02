@@ -1,6 +1,6 @@
-package com.example.lucas.spidey3.features.comiclist.data.network
+package com.example.lucas.spidey3.features.comiclist.data.datasource.network
 
-import com.example.lucas.spidey3.features.comiclist.data.network.dto.ComicDataWrapperDto
+import com.example.lucas.spidey3.features.comiclist.data.datasource.network.dto.ComicDataWrapperDto
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Path

@@ -1,7 +1,7 @@
-package com.example.lucas.spidey3.features.comiclist.data.network.datastore
+package com.example.lucas.spidey3.features.comiclist.data.datasource.network
 
-import com.example.lucas.spidey3.features.comiclist.data.network.MarvelApi
-import com.example.lucas.spidey3.features.comiclist.data.network.converter.ComicConverter
+import com.example.lucas.spidey3.features.comiclist.data.datasource.network.converter.ComicConverter
+import com.example.lucas.spidey3.features.comiclist.data.datasource.network.util.CreateHashUtil
 import com.example.lucas.spidey3.features.comiclist.domain.model.Comic
 import io.reactivex.Single
 import java.util.*
@@ -34,7 +34,10 @@ class ComicDataStore @Inject constructor(private val marvelApi: MarvelApi,
     private fun getTimestampAndHash(): Pair<String, String> {
         val calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"))
         val timestamp = calendar.timeInMillis / 1000L
-        val hash: String = CreateHashUtil.md5(timestamp.toString() + privateApiKey + publicApiKey)
+        val hash: String =
+            CreateHashUtil.md5(
+                timestamp.toString() + privateApiKey + publicApiKey
+            )
 
         return Pair<String, String>(timestamp.toString(), hash)
     }

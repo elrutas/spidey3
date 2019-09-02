@@ -1,7 +1,7 @@
-package com.example.lucas.spidey3.features.comiclist.data.network.converter
+package com.example.lucas.spidey3.features.comiclist.data.datasource.network.converter
 
-import com.example.lucas.spidey3.features.comiclist.data.network.dto.ComicDataWrapperDto
-import com.example.lucas.spidey3.features.comiclist.data.network.dto.ComicImageDto
+import com.example.lucas.spidey3.features.comiclist.data.datasource.network.dto.ComicDataWrapperDto
+import com.example.lucas.spidey3.features.comiclist.data.datasource.network.dto.ComicImageDto
 import com.example.lucas.spidey3.features.comiclist.domain.model.Comic
 
 class ComicConverter {

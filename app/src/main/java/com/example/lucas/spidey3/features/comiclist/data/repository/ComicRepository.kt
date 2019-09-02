@@ -1,6 +1,6 @@
 package com.example.lucas.spidey3.features.comiclist.data.repository
 
-import com.example.lucas.spidey3.features.comiclist.data.network.datastore.ComicDataStore
+import com.example.lucas.spidey3.features.comiclist.data.datasource.network.ComicDataStore
 import com.example.lucas.spidey3.features.comiclist.domain.model.Comic
 import com.example.lucas.spidey3.features.comiclist.domain.model.SuperHero
 import io.reactivex.Single

@@ -1,4 +1,4 @@
-package com.example.lucas.spidey3.features.comiclist.data.network.datastore;
+package com.example.lucas.spidey3.features.comiclist.data.datasource.network.util;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

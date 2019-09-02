@@ -1,7 +1,7 @@
-package com.example.lucas.spidey3.features.comiclist.data.network.di
+package com.example.lucas.spidey3.features.comiclist.data.datasource.network.di
 
 import com.example.lucas.spidey3.BuildConfig
-import com.example.lucas.spidey3.features.comiclist.data.network.MarvelApi
+import com.example.lucas.spidey3.features.comiclist.data.datasource.network.MarvelApi
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient

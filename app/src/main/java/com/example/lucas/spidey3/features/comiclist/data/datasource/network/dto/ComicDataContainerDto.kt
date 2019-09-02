@@ -1,4 +1,4 @@
-package com.example.lucas.spidey3.features.comiclist.data.network.dto
+package com.example.lucas.spidey3.features.comiclist.data.datasource.network.dto
 
 class ComicDataContainerDto(
     val offset: Int,
