@@ -1,4 +1,4 @@
-package com.example.lucas.spidey3.features.common.data.network.dto
+package com.example.lucas.spidey3.features.comiclist.data.network.dto
 
 class ComicDataWrapperDto(
     var code: String,

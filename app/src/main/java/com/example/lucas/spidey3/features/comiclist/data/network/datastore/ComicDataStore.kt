@@ -1,8 +1,8 @@
-package com.example.lucas.spidey3.features.common.data.network.datastore
+package com.example.lucas.spidey3.features.comiclist.data.network.datastore
 
-import com.example.lucas.spidey3.features.common.data.network.MarvelApi
-import com.example.lucas.spidey3.features.common.data.network.converter.ComicConverter
-import com.example.lucas.spidey3.features.common.domain.model.Comic
+import com.example.lucas.spidey3.features.comiclist.data.network.MarvelApi
+import com.example.lucas.spidey3.features.comiclist.data.network.converter.ComicConverter
+import com.example.lucas.spidey3.features.comiclist.domain.model.Comic
 import io.reactivex.Single
 import java.util.*
 import javax.inject.Inject
@@ -23,11 +23,12 @@ class ComicDataStore @Inject constructor(private val marvelApi: MarvelApi,
                 .map { comicConverter.map(it) }
     }
 
-    fun getComic(comicId: Int): Single<List<Comic>> {
+    fun getComic(comicId: Int): Single<Comic> {
         val (timestamp, hash) = getTimestampAndHash()
 
         return marvelApi.getComic(comicId, timestamp, publicApiKey, hash)
                 .map { comicConverter.map(it) }
+                .map { it[0] }
     }
 
     private fun getTimestampAndHash(): Pair<String, String> {

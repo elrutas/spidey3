@@ -1,7 +1,7 @@
-package com.example.lucas.spidey3.features.common.data.repository
+package com.example.lucas.spidey3.features.comiclist.data.repository
 
-import com.example.lucas.spidey3.features.common.data.network.datastore.ComicDataStore
-import com.example.lucas.spidey3.features.common.domain.model.Comic
+import com.example.lucas.spidey3.features.comiclist.data.network.datastore.ComicDataStore
+import com.example.lucas.spidey3.features.comiclist.domain.model.Comic
 import com.example.lucas.spidey3.features.comiclist.domain.model.SuperHero
 import io.reactivex.Single
 
@@ -13,6 +13,5 @@ class ComicRepository(val remote: ComicDataStore) {
 
     fun getComic(comicId: Int): Single<Comic> {
         return remote.getComic(comicId)
-                .map { it.get(0) }
     }
 }

@@ -1,6 +1,6 @@
 package com.example.lucas.spidey3.features.comiclist.ui
 
-import com.example.lucas.spidey3.features.common.domain.model.Comic
+import com.example.lucas.spidey3.features.comiclist.domain.model.Comic
 
 sealed class ComicListState(
     val comics: List<Comic> = listOf(),
