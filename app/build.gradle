@@ -51,7 +51,7 @@ androidExtensions {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.3.50"
     implementation 'androidx.appcompat:appcompat:1.0.2'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     testImplementation 'junit:junit:4.12'
@@ -71,7 +71,7 @@ dependencies {
     implementation 'com.squareup.okhttp3:logging-interceptor:3.11.0'
 
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
-    implementation 'io.reactivex.rxjava2:rxjava:2.2.10'
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.11'
 
     // Dagger
     def daggerVersion = "2.24"
@@ -94,7 +94,7 @@ dependencies {
         exclude group: 'org.jetbrains.kotlin'
     }
 
-    def daggerMockVersion = "0.8.4"
+    def daggerMockVersion = "0.8.5"
     testImplementation "com.github.fabioCollini.daggermock:daggermock-kotlin:$daggerMockVersion"
 
     // Instrumentation test dependencies
@@ -109,7 +109,6 @@ dependencies {
     androidTestImplementation "com.google.dagger:dagger:$daggerVersion"
     kaptAndroidTest "com.google.dagger:dagger-compiler:$daggerVersion"
 
-    def espressoVersion = "3.0.2"
     androidTestImplementation('androidx.test.espresso:espresso-core:3.1.0') {
         // Necessary to avoid version conflicts
         exclude group: 'com.android.support', module: 'support-annotations'
@@ -126,7 +125,6 @@ dependencies {
         exclude module: 'recyclerview-v7'
     }
 
-    def testRunnerVersion = "1.0.2"
     androidTestImplementation('androidx.test:runner:1.1.0') {
         // Necessary to avoid version conflicts
         exclude group: 'com.android.support', module: 'support-annotations'
