@@ -14,6 +14,10 @@ class ComicListViewModel @Inject constructor(
 
     private val liveData: MutableLiveData<ComicListState> = MutableLiveData()
 
+    init {
+        loadComics()
+    }
+
     fun loadComics() {
         if (liveData.value?.loading == true) {
             return

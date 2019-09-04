@@ -60,6 +60,11 @@ class ComicDetailActivity : BaseActivity() {
         val comicTitle = intent.getStringExtra(COMIC_TITLE_EXTRA)
         val comicThumbnailUrl = intent.getStringExtra(COMIC_THUMBNAIL)
 
+        if (comicId  == -1) {
+            finish()  // TODO: more "gentle" error handling
+            return
+        }
+
         comic_detail_title.text = comicTitle
         loadThumbnail(comicThumbnailUrl)
         viewModel.getComic(comicId)
@@ -157,9 +162,9 @@ class ComicDetailActivity : BaseActivity() {
     }
 
     companion object {
-        private const val COMIC_ID_EXTRA = "comicId"
-        private const val COMIC_TITLE_EXTRA = "comicTitle"
-        private const val COMIC_THUMBNAIL = "comicThumbnailUrl"
+        const val COMIC_ID_EXTRA = "comicId"
+        const val COMIC_TITLE_EXTRA = "comicTitle"
+        const val COMIC_THUMBNAIL = "comicThumbnailUrl"
 
         fun launchDetailActivity(
             from: Activity, comicId: Int, comicTitle: String, comicThumbnailUrl: String,

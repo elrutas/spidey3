@@ -35,7 +35,6 @@ class ComicListActivity : BaseActivity() {
         setupComicList()
 
         viewModel.liveState().observe(this, Observer { onStateChanged(it) })
-        viewModel.loadComics()
     }
 
     private fun onStateChanged(state: ComicListState) {

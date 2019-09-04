@@ -1,8 +1,8 @@
-package com.example.lucas.spidey3
+package com.example.lucas.spidey3.features.comiclist
 
 import android.content.Intent
 import androidx.test.rule.ActivityTestRule
-import androidx.test.runner.AndroidJUnit4
+import com.example.lucas.spidey3.R
 import com.example.lucas.spidey3.features.comiclist.data.repository.ComicRepository
 import com.example.lucas.spidey3.di.daggerMockRule
 import com.example.lucas.spidey3.features.comiclist.domain.model.Comic
@@ -17,11 +17,9 @@ import io.reactivex.Single
 import io.reactivex.subjects.PublishSubject
 import org.junit.Rule
 import org.junit.Test
-import org.junit.runner.RunWith
 import org.mockito.Mockito.`when`
 import java.util.*
 
-@RunWith(AndroidJUnit4::class)
 class ComicListTest {
 
     @get:Rule val daggerRule = daggerMockRule()
@@ -36,7 +34,10 @@ class ComicListTest {
 
         activityRule.launchActivity(Intent())
 
-        textInViewInComicListPosition(0, R.id.comic_list_error_item_title, R.string.comic_list_item_error)
+        textInViewInComicListPosition(0,
+            R.id.comic_list_error_item_title,
+            R.string.comic_list_item_error
+        )
     }
 
     @Test
@@ -61,7 +62,10 @@ class ComicListTest {
 
         activityRule.launchActivity(Intent())
 
-        textInViewInComicListPosition(0, R.id.comic_list_loading_item_title, R.string.comic_list_item_loading)
+        textInViewInComicListPosition(0,
+            R.id.comic_list_loading_item_title,
+            R.string.comic_list_item_loading
+        )
     }
 
     @Test
